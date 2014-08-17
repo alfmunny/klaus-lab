@@ -53,8 +53,8 @@ Configuration to do:
 * `doc/` folder is not including. Make sure you have it locally.
 
 * override the `esmeralda/src/pen/lib/segmentation/fextract.c` with the `fextract.c` which provided in this project root
-  then compile
-  
+  and then compile
+
       $ cd esmeralda/src/pen
       $ make
       $ make install
@@ -112,7 +112,7 @@ In `hmm/` are these folders for storing the generated models.
 * `10dim-noSlant`: 10 features without slant
 * `12dim-noSlant`: 12 features without slant
 
-Example folder tree of `10dim-Slant`:
+Folder tree of `10dim-Slant`:
 
     10dim-Slant/
       | linear/  :initial training
@@ -120,8 +120,8 @@ Example folder tree of `10dim-Slant`:
       | bakis/    :final bakis models
       | DoAll    :shell script for generating models
 
-`DoAll` is a shell script, which run all commands from the very beginning
-to the end. It means it will override all current models, generating it
+**`DoAll` is a shell script, which run all commands from the very beginning
+to the end.** It means it will override all current models, generating it
 again and also do the evaluation for models in `bakis` and `nobakis`.
 
 **Attention: please choose the corresponding ufv folder before generating the model.**
@@ -133,7 +133,7 @@ features. You can override the current ufv folder with the features you have gen
 
 ```
 $ rm -r ufv
-$ cp -r ufv_10_dim_Slant ufv
+$ cp -r ufv_10dim_Slant ufv
 ```
 
 Then run `DoAll` in the folder with the corresponding name
@@ -151,7 +151,7 @@ After `DoAll` the evaluation summary `SUM` will be created in `bakis` and `nobak
 
 The evaluation format:
 
-    WA/SR/WC/S/D/I = 40.85+/-1.2 0.00 65.65 29.11 4.61 4.79
+    WA/SR/WC/S/D/I = 60.85+/-1.2 0.00 65.65 29.11 4.61 4.79
 
 Criteria:
 
@@ -171,9 +171,9 @@ Criteria:
 
 `WA` = 100% - `S` - `D` - `I`
 
-### Run evaluation seperately
+### Run evaluation separately
 
-To only run evaluation seperately, direct to the model folder `bakis` or `nobakis`.
+To only run evaluation saperately, direct to the model folder `bakis` or `nobakis`.
 
 Here is a example for `10dim-Slant`
 
