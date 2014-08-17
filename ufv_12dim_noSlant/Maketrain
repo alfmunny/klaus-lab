@@ -1,0 +1,28 @@
+#! /bin/bash
+
+echo '#'>train.tmp
+
+cats=`ls -d [B]*`
+
+for cat in $cats
+do
+	lines=`(cd ./$cat; ls *.ufv)`
+
+	for lin in $lines
+	do
+		word=`echo $lin | cut -d'_' -f1`
+		echo $word>a
+		cat a	\
+		| sed "s/ü/ue/g"	\
+	   	| sed "s/ä/ae/g"	\
+	   	| sed "s/ö/oe/g"	\
+		| sed "s/ß/ss/g"	\
+		| sed "s/Ü/UE/g"	\
+	   	| sed "s/Ä/AE/g" 	\
+		| sed "s/Ö/OE/g">b
+		name=`cat b`
+		echo -e "$PWD/$cat/$lin\0011$name">>train.tmp
+	done
+done
+
+grep -v '#' train.tmp>klaus.train.txt

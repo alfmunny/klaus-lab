@@ -1,74 +1,74 @@
 ; model statistics
 ; name, # of samples, min, max, med., avg., 2xavg., var. of duration
 [-]	<not observed>
-/a/	<not observed>
-/A/	<not observed>
-/ae/	<not observed>
-/AE/	<not observed>
+/a/	1363	4	216	14	19.7887	(39.5774)	515.242
+/A/	115	4	127	23	28.2174	(56.4348)	485.492
+/ae/	168	4	178	16	19.8155	(39.631)	379.662
+/AE/	1	51	51	51	51	(102)	0
 [as]	<not observed>
-/b/	<not observed>
-/B/	<not observed>
-/c/	<not observed>
-/C/	<not observed>
+/b/	596	4	268	15	19.7567	(39.5134)	413.258
+/B/	116	4	137	28	32.5862	(65.1724)	502.26
+/c/	1207	4	644	9	21.0978	(42.1955)	2118.31
+/C/	29	4	429	30	45.1034	(90.2069)	5548.58
 [cl]	<not observed>
 [cm]	<not observed>
-/d/	<not observed>
-/D/	<not observed>
+/d/	1318	4	101	14	15.9962	(31.9924)	115.952
+/D/	90	4	156	21	27.6111	(55.2222)	514.06
 [dot]	<not observed>
 [dots]	<not observed>
 [dq]	<not observed>
-/e/	<not observed>
-/E/	<not observed>
+/e/	5178	4	92	10	12.1342	(24.2684)	75.7921
+/E/	73	5	177	29	39.3288	(78.6575)	1180.08
 [em]	<not observed>
-/f/	<not observed>
-/F/	<not observed>
+/f/	390	4	343	15	27.4769	(54.9538)	2042.86
+/F/	63	4	451	20	43.3016	(86.6032)	6005.04
 [fs]	<not observed>
-/g/	<not observed>
-/G/	<not observed>
-/h/	<not observed>
-/H/	<not observed>
-/i/	<not observed>
-/I/	<not observed>
-/j/	<not observed>
-/J/	<not observed>
-/k/	<not observed>
-/K/	<not observed>
-/l/	<not observed>
-/L/	<not observed>
+/g/	853	4	168	16	20.7175	(41.4349)	275.136
+/G/	91	4	367	30	51.2198	(102.44)	3629.38
+/h/	1808	4	543	11	19.9165	(39.833)	1111.74
+/H/	69	4	300	28	43.2319	(86.4638)	2976
+/i/	2555	4	440	9	15.2548	(30.5096)	573.957
+/I/	140	4	316	22	40.8571	(81.7143)	2825.57
+/j/	41	4	258	22	53.0244	(106.049)	4287.88
+/J/	20	5	65	26	29.65	(59.3)	326.827
+/k/	263	4	80	17	21.038	(42.076)	203.778
+/K/	39	5	180	26	32.8205	(65.641)	824.147
+/l/	1035	4	471	11	15.1391	(30.2783)	358.918
+/L/	78	5	472	24	54.5769	(109.154)	6343.14
 [lp]	<not observed>
-/m/	<not observed>
-/M/	<not observed>
-/n/	<not observed>
-/N/	<not observed>
-/o/	<not observed>
-/O/	<not observed>
-/oe/	<not observed>
-/p/	<not observed>
-/P/	<not observed>
+/m/	825	4	147	22	25.4558	(50.9115)	410.432
+/M/	82	4	150	34	38.5854	(77.1707)	565.926
+/n/	3028	4	223	14	19.8052	(39.6103)	399.764
+/N/	39	4	76	31	32.7949	(65.5897)	290.471
+/o/	644	4	369	10	16.0916	(32.1832)	645.282
+/O/	10	10	102	36	40.7	(81.4)	773.41
+/oe/	100	4	545	14	28.2	(56.4)	3332.08
+/p/	115	4	196	17	26.0957	(52.1913)	763.582
+/P/	59	7	112	29	33.8644	(67.7288)	412.931
 [pl]	<not observed>
-/q/	<not observed>
+/q/	6	25	142	69	60.5	(121)	1729.58
 [qm]	<not observed>
-/r/	<not observed>
-/R/	<not observed>
+/r/	1989	4	348	11	18.0035	(36.007)	551.847
+/R/	45	9	249	32	48.9778	(97.9556)	2371.49
 [rp]	<not observed>
-/s/	<not observed>
-/S/	<not observed>
+/s/	1625	4	340	13	19.8954	(39.7908)	735.056
+/S/	232	4	184	18	28.306	(56.6121)	920.368
 [sc]	<not observed>
-[space]	<not observed>
+[space]	11848	4	403	25	31.9996	(63.9992)	906.228
 [sq]	<not observed>
-/ss/	<not observed>
+/ss/	190	4	202	20	29.5895	(59.1789)	653.453
 [st]	<not observed>
-/t/	<not observed>
-/T/	<not observed>
-/u/	<not observed>
-/U/	<not observed>
-/ue/	<not observed>
-/UE/	<not observed>
-/v/	<not observed>
-/V/	<not observed>
-/w/	<not observed>
-/W/	<not observed>
+/t/	1650	4	192	11	14.4764	(28.9527)	158.013
+/T/	39	4	330	26	62.3077	(124.615)	6217.85
+/u/	1022	4	288	17	24.2387	(48.4775)	887.646
+/U/	34	13	97	33	40.8824	(81.7647)	619.986
+/ue/	213	4	429	15	26.8826	(53.7653)	1940.69
+/UE/	4	30	57	44	43.75	(87.5)	91.1875
+/v/	182	4	264	23	36.2253	(72.4505)	1820.05
+/V/	48	6	650	27	47.625	(95.25)	8703.28
+/w/	419	4	110	25	26.4224	(52.8449)	322.12
+/W/	65	6	93	32	35.5538	(71.1077)	408.217
 [XXX]	<not observed>
-/y/	<not observed>
-/z/	<not observed>
-/Z/	<not observed>
+/y/	49	7	348	21	41.102	(82.2041)	3594.99
+/z/	284	4	454	17	30.8451	(61.6901)	2344.24
+/Z/	39	6	247	28	51.2564	(102.513)	3030.19

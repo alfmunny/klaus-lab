@@ -1,9 +1,10 @@
-ufv*/
 doc/
-lin*/
+*pgm
+*ufv
 md_list/
 md_ufv/
 md/
+
 *cl.err
 *cl
 *state.err

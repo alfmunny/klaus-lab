@@ -1,0 +1,40 @@
+#! /bin/sh
+
+#
+# NOTE: tools are found in	/vol/pen/bin 
+#	new versions in		~gernot/bin.linux
+#
+
+CORPUS=klaus
+
+#SRC=/vol/pen/data/off/doc/iam-db
+SRC=$HOME/esmeralda/lab/klaus/doc
+srctype="bmp"
+desttype="pgm"
+
+#cats="a01"
+#cats=`(cd $SRC; ls -d [a-z]*[0-9])`
+#cats=`(cd $SRC; ls -d [a-f]*[0-9])`	# used in M. Wienecke's experiments
+#cats=`(cd $SRC; ls -d [a-z]*[0-9])`	# all available documents!
+cats=`(cd $SRC; ls)`	# all available documents!
+
+for cat in $cats
+    do
+	if [ ! -d $cat ]; then
+		mkdir $cat
+	fi
+	echo "processing category '" $cat "' ..."
+
+	for img in `ls $SRC/$cat/*.$srctype`
+	    do
+		doc=`basename $img .$srctype`
+
+		#convert $img $cat/${doc}.${desttype}:-	\
+		(convert $img $desttype:-	\
+		| pen_displace -g 40 -l 12000	\
+		| pen_slope	-g 40 -l 12000	\
+		| pen_slant -m1 -g 40 -l 12000	\
+		| pen_scale -g 100 -l 1500 -n 5 -f 0 -w 25 \
+		>$cat/${doc}.${desttype})
+	    done
+    done
