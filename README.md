@@ -8,7 +8,7 @@ They would be filled in couple of days.
 Only to see the results, please review them on [Github](https://github.com/alfmunny/klaus-lab).
 
 For each model is a evaluation file `SUM` generated.
-The `SUM` for the `bakis` of `10dim-Slant`
+For example, the `SUM` for the `bakis` of `10dim-Slant`
 can be found [here on Github](https://github.com/alfmunny/klaus-lab/blob/master/hmm/10dim-Slant/bakis/SUM).
 The content of `SUM` will be described here in part **Evaluation of models**.
 
@@ -54,6 +54,7 @@ Configuration to do:
 
 * override the `esmeralda/src/pen/lib/segmentation/fextract.c` with the `fextract.c` which provided in this project root
   then compile
+  
       $ cd esmeralda/src/pen
       $ make
       $ make install
