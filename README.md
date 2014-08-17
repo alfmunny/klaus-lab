@@ -2,13 +2,15 @@
 
 This page contains the full steps and descriptions to generate models and results.
 
-Results are represented in diagram above.
+Results are represented in diagram above. Now there are still results for 12 dimensions left.
+They would be filled in couple of days.
 
 Only to see the results, please review them on [Github](https://github.com/alfmunny/klaus-lab).
 
 For each model is a evaluation file `SUM` generated.
 The `SUM` for the `bakis` of `10dim-Slant`
-can be found here on Github. The content of `SUM` will be described here in part **Evaluation of models**.
+can be found [here on Github](https://github.com/alfmunny/klaus-lab/blob/master/hmm/10dim-Slant/bakis/SUM).
+The content of `SUM` will be described here in part **Evaluation of models**.
 
 ## Project Folders
 
@@ -82,13 +84,13 @@ Example:
 
 ```
 $ cd ufv_10dim_Slant
-$ ./merkmale.sh
+$ ./merkmale_hmm.sh
 ```
 or
 
 ```
 $ cd ufv_12dim_Slant
-$ ./merkmale.sh
+$ ./merkmale_hmm.sh
 ```
 
 When generate features without slant, override the current `lin` with `lin_noSlant` just like before:
@@ -98,7 +100,7 @@ $ rm -r lin
 $ cp -r lin_noSlant lin
 
 ```
-and run the `merkmale.sh` in `ufv_10dim_noSlant/` and`ufv_12dim_noSlant`.
+and run the `merkmale_hmm.sh` in `ufv_10dim_noSlant/` and`ufv_12dim_noSlant`.
 
 ## Generate models
 

@@ -58,113 +58,194 @@
     </h3> -->
 
       <script src="javascripts/diagram.js" type="text/javascript"></script>
+<h2>Foreword</h2>
 
-      <h2 id="foreword">Foreword</h2>
-      <p>This page contains the full steps and descriptions to generate models and results.</p>
-      <p>Results are represented in diagram above.</p>
-      <p>Only to see the results, please review them on <a href="https://github.com/alfmunny/klaus-lab">Github</a>.</p>
-      <p>For each model is a evaluation file <code>SUM</code> generated.
-      The <code>SUM</code> for the <code>bakis</code> of <code>10dim-Slant</code>
-      can be found here on Github. The content of <code>SUM</code> will be described here.</p>
-      <h2 id="project-folders">Project Folders</h2>
-      <p>Here are relevant folders:</p>
-      <p><code>def</code>: definitions for lexicon</p>
-      <p><code>ref</code>: character reference</p>
-      <p><code>lm</code>: language model</p>
-      <p><code>lin</code>: current line files</p>
-      <p><code>lin_noSlant</code>: line image files without slant</p>
-      <p><code>lin_Slant</code>: line image files with slant</p>
-      <p><code>ufv</code>: current ufv (binary date of features) files</p>
-      <p><code>ufv_10dim_noSlant</code>: features for 10 dimensions without slant</p>
-      <p><code>ufv_12dim_noSlant</code>: features for 12 dims without slant</p>
-      <p><code>ufv_10dim_Slant</code>: features for 10 dims with slant</p>
-      <p><code>ufv_12dim_Slant</code>: features for 12 dims with slant</p>
-      <p><code>hmm</code>: hidden markov model</p>
-      <h2 id="configuration-before-run">Configuration before run</h2>
-      <p>It's also possible to generate the result by self.</p>
-      <p>Configuration to do:</p>
-      <ul>
-      <li><p>Download the .zip file and override the original folder with new folder in <code>lab/klaus/</code>.</p>
-      </li>
-      <li><p><code>doc/</code> folder is not including. Make sure you have it locally.</p>
-      </li>
-      <li><p>override the <code>esmeralda/src/pen/lib/segmentation/fextract.c</code> with the <code>fextract.c</code> which provided in this project root
-      then compile</p>
-      <pre class="editor-colors"><code>$ cd esmeralda/src/pen
-      $ make
-      $ make install
-      </code></pre></li>
-      </ul>
-      <h2 id="generate-lines">Generate lines</h2>
-      <p>Direct to corresponding folder <code>lin_noSlant</code> or <code>lin_Slant</code> and run:</p>
-      <pre class="editor-colors"><code>$ ./MakeLines
-      </code></pre><h2 id="generate-features">Generate features</h2>
-      <p>Change the current <code>lin</code> to the lines files which you want to generate from.</p>
-      <p>For example  when generate features with lines with slant, override the current <code>lin</code> with <code>lin_Slant</code>:</p>
-      <pre class="editor-colors"><code>$ rm -r lin
-      $ cp -r lin_Slant lin
-      </code></pre><p>Then direct to the ufv folder with the desired configuration showed in the folder name.</p>
-      <p>Example:</p>
-      <pre class="editor-colors"><code>$ cd ufv_10dim_Slant
-      $ ./merkmale.sh
-      </code></pre><p>or</p>
-      <pre class="editor-colors"><code>$ cd ufv_12dim_Slant
-      $ ./merkmale.sh
-      </code></pre><p>When generate features without slant, override the current <code>lin</code> with <code>lin_noSlant</code> just like before:</p>
-      <pre class="editor-colors"><code>$ rm -r lin
-      $ cp -r lin_noSlant lin
-      </code></pre><p>and run the <code>merkmale.sh</code> in <code>ufv_10dim_noSlant/</code> and<code>ufv_12dim_noSlant</code>.</p>
-      <h2 id="generate-models">Generate models</h2>
-      <p>In <code>hmm/</code> are these folders for storing the generated models.</p>
-      <ul>
-      <li><code>10dim-Slant</code>: 10 features with slant</li>
-      <li><code>12dim-Slant</code>: 12 features with slant</li>
-      <li><code>10dim-noSlant</code>: 10 features without slant</li>
-      <li><code>12dim-noSlant</code>: 12 features without slant</li>
-      </ul>
-      <p>Example folder tree of <code>10dim-Slant</code>:</p>
-      <pre class="editor-colors"><code>10dim-Slant/
-        | linear/  :initial training
-        | nobakis/  :final linear(no bakis) models
-        | bakis/    :final bakis models
-        | DoAll    :shell script for generating models
-      </code></pre><p><code>DoAll</code> is a shell script, which run all commands from the very beginning
-      to the end. It means it will override all current models, generating it
-      again and also do the evaluation for models in <code>bakis</code> and <code>nobakis</code>.</p>
-      <p><strong>Attention: please choose the corresponding ufv folder before generating the model.</strong></p>
-      <p>Example: <code>10dim-Slant</code></p>
-      <p>Generate models for <code>10dim-Slant</code>, firstly make sure the current ufv folder is including the corresponding
-      features. You can override the current ufv folder with the features you have generated before.</p>
-      <pre class="editor-colors"><code>$ rm -r ufv
-      $ cp -r ufv_10_dim_Slant ufv
-      </code></pre><p>Then run <code>DoAll</code> in the folder with the corresponding name</p>
-      <pre class="editor-colors"><code>$ cd hmm/10dim_Slant
-      $ ./DoAll
-      </code></pre><h2 id="evaluation-of-models">Evaluation of models</h2>
-      <h3 id="introduction-of-evaluation">Introduction of Evaluation</h3>
-      <p>After <code>DoAll</code> the evaluation summary <code>SUM</code> will be created in <code>bakis</code> and <code>nobakis</code>.</p>
-      <p>The evaluation format:</p>
-      <pre class="editor-colors"><code>WA/SR/WC/S/D/I = 40.85+/-1.2 0.00 65.65 29.11 4.61 4.79
-      </code></pre><p>Criteria:</p>
-      <p><code>WA</code>: word accuracy</p>
-      <p><code>SR</code>: sentence recognition</p>
-      <p><code>WC</code>: words correct</p>
-      <p><code>S</code>: substitutions</p>
-      <p><code>D</code>: deletions</p>
-      <p><code>I</code>: insertions</p>
-      <p><code>WC</code> + <code>S</code> + <code>D</code> = 100%</p>
-      <p><code>WA</code> = 100% - <code>S</code> - <code>D</code> - <code>I</code></p>
-      <h3 id="run-evaluation-seperately">Run evaluation seperately</h3>
-      <p>To only run evaluation seperately, direct to the model folder <code>bakis</code> or <code>nobakis</code>.</p>
-      <p>Here is a example for <code>10dim-Slant</code></p>
-      <pre class="editor-colors"><code>$ cd 10dim-Slant
-      $ cd bakis
-      $ ../../MkEvals
-      $ ../../MkSummary
-      </code></pre><p>The results will be printed directly in terminal.</p>
-      <p>Or stored the results in file <code>SUM</code>.</p>
-      <pre class="editor-colors"><code>$ ../../MkSummary&gt;SUM
-      </code></pre>
+<p>This page contains the full steps and descriptions to generate models and results.</p>
+
+<p>Results are represented in diagram above. Now there are still results for 12 dimensions left.
+They would be filled in couple of days.</p>
+
+<p>Only to see the results, please review them on <a href="https://github.com/alfmunny/klaus-lab">Github</a>.</p>
+
+<p>For each model is a evaluation file <code>SUM</code> generated.
+The <code>SUM</code> for the <code>bakis</code> of <code>10dim-Slant</code>
+can be found <a href="https://github.com/alfmunny/klaus-lab/blob/master/hmm/10dim-Slant/bakis/SUM">here on Github</a>.
+The content of <code>SUM</code> will be described here in part <strong>Evaluation of models</strong>.</p>
+
+<h2>Project Folders</h2>
+
+<p>Here are relevant folders:</p>
+
+<p><code>def</code>: definitions for lexicon</p>
+
+<p><code>ref</code>: character reference</p>
+
+<p><code>lm</code>: language model</p>
+
+<p><code>lin</code>: current line files</p>
+
+<p><code>lin_noSlant</code>: line image files without slant</p>
+
+<p><code>lin_Slant</code>: line image files with slant</p>
+
+<p><code>ufv</code>: current ufv (binary date of features) files</p>
+
+<p><code>ufv_10dim_noSlant</code>: features for 10 dimensions without slant</p>
+
+<p><code>ufv_12dim_noSlant</code>: features for 12 dims without slant</p>
+
+<p><code>ufv_10dim_Slant</code>: features for 10 dims with slant</p>
+
+<p><code>ufv_12dim_Slant</code>: features for 12 dims with slant</p>
+
+<p><code>hmm</code>: hidden markov model</p>
+
+<h2>Configuration before run</h2>
+
+<p>It's also possible to generate the result by self.</p>
+
+<p>Configuration to do:</p>
+
+<ul>
+<li><p>Download the .zip file and override the original folder with new folder in <code>lab/klaus/</code>.</p></li>
+<li><p><code>doc/</code> folder is not including. Make sure you have it locally.</p></li>
+<li><p>override the <code>esmeralda/src/pen/lib/segmentation/fextract.c</code> with the <code>fextract.c</code> which provided in this project root
+then compile
+    $ cd esmeralda/src/pen
+    $ make
+    $ make install</p></li>
+</ul>
+
+
+<h2>Generate lines</h2>
+
+<p>Direct to corresponding folder <code>lin_noSlant</code> or <code>lin_Slant</code> and run:</p>
+
+<pre><code>$ ./MakeLines
+</code></pre>
+
+<h2>Generate features</h2>
+
+<p>Change the current <code>lin</code> to the lines files which you want to generate from.</p>
+
+<p>For example  when generate features with lines with slant, override the current <code>lin</code> with <code>lin_Slant</code>:</p>
+
+<pre><code>$ rm -r lin
+$ cp -r lin_Slant lin
+</code></pre>
+
+<p>Then direct to the ufv folder with the desired configuration showed in the folder name.</p>
+
+<p>Example:</p>
+
+<pre><code>$ cd ufv_10dim_Slant
+$ ./merkmale_hmm.sh
+</code></pre>
+
+<p>or</p>
+
+<pre><code>$ cd ufv_12dim_Slant
+$ ./merkmale_hmm.sh
+</code></pre>
+
+<p>When generate features without slant, override the current <code>lin</code> with <code>lin_noSlant</code> just like before:</p>
+
+<pre><code>$ rm -r lin
+$ cp -r lin_noSlant lin
+</code></pre>
+
+<p>and run the <code>merkmale_hmm.sh</code> in <code>ufv_10dim_noSlant/</code> and<code>ufv_12dim_noSlant</code>.</p>
+
+<h2>Generate models</h2>
+
+<p>In <code>hmm/</code> are these folders for storing the generated models.</p>
+
+<ul>
+<li><code>10dim-Slant</code>: 10 features with slant</li>
+<li><code>12dim-Slant</code>: 12 features with slant</li>
+<li><code>10dim-noSlant</code>: 10 features without slant</li>
+<li><code>12dim-noSlant</code>: 12 features without slant</li>
+</ul>
+
+
+<p>Example folder tree of <code>10dim-Slant</code>:</p>
+
+<pre><code>10dim-Slant/
+  | linear/  :initial training
+  | nobakis/  :final linear(no bakis) models
+  | bakis/    :final bakis models
+  | DoAll    :shell script for generating models
+</code></pre>
+
+<p><code>DoAll</code> is a shell script, which run all commands from the very beginning
+to the end. It means it will override all current models, generating it
+again and also do the evaluation for models in <code>bakis</code> and <code>nobakis</code>.</p>
+
+<p><strong>Attention: please choose the corresponding ufv folder before generating the model.</strong></p>
+
+<p>Example: <code>10dim-Slant</code></p>
+
+<p>Generate models for <code>10dim-Slant</code>, firstly make sure the current ufv folder is including the corresponding
+features. You can override the current ufv folder with the features you have generated before.</p>
+
+<pre><code>$ rm -r ufv
+$ cp -r ufv_10_dim_Slant ufv
+</code></pre>
+
+<p>Then run <code>DoAll</code> in the folder with the corresponding name</p>
+
+<pre><code>$ cd hmm/10dim_Slant
+$ ./DoAll
+</code></pre>
+
+<h2>Evaluation of models</h2>
+
+<h3>Introduction of Evaluation</h3>
+
+<p>After <code>DoAll</code> the evaluation summary <code>SUM</code> will be created in <code>bakis</code> and <code>nobakis</code>.</p>
+
+<p>The evaluation format:</p>
+
+<pre><code>WA/SR/WC/S/D/I = 40.85+/-1.2 0.00 65.65 29.11 4.61 4.79
+</code></pre>
+
+<p>Criteria:</p>
+
+<p><code>WA</code>: word accuracy</p>
+
+<p><code>SR</code>: sentence recognition</p>
+
+<p><code>WC</code>: words correct</p>
+
+<p><code>S</code>: substitutions</p>
+
+<p><code>D</code>: deletions</p>
+
+<p><code>I</code>: insertions</p>
+
+<p><code>WC</code> + <code>S</code> + <code>D</code> = 100%</p>
+
+<p><code>WA</code> = 100% - <code>S</code> - <code>D</code> - <code>I</code></p>
+
+<h3>Run evaluation seperately</h3>
+
+<p>To only run evaluation seperately, direct to the model folder <code>bakis</code> or <code>nobakis</code>.</p>
+
+<p>Here is a example for <code>10dim-Slant</code></p>
+
+<pre><code>$ cd 10dim-Slant
+$ cd bakis
+$ ../../MkEvals
+$ ../../MkSummary
+</code></pre>
+
+<p>The results will be printed directly in terminal.</p>
+
+<p>Or stored the results in file <code>SUM</code>.</p>
+
+<pre><code>$ ../../MkSummary&gt;SUM
+</code></pre>
+
     </section>
     <footer>
       <p>Project maintained by <a href="https://github.com/alfmunny">alfmunny</a>
