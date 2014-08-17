@@ -1,0 +1,206 @@
+#!/bin/sh
+
+#
+# generelle und default Parameter
+#
+verbose=
+relpath=". .. ../.. ../../.."
+
+name=Character
+lmtype=lm2
+#xevalset=t0v1		# also available: t0v2, t0t
+xevalset=a
+#task=t0			# also available: 20k
+task=a1k
+key=			# zur Markierung von Varianten
+
+#
+# Programme
+#
+ISR=isr
+
+#PARAM="-T 0 -i 0.001 -f 1e-5"
+
+#
+#	Optionsbehandlung
+#
+while [ $# -gt 0 ];
+	do
+		case $1 in
+			-h)
+	echo "Usage is:";
+	echo "	"`basename $0`" [-v] [-n <name>] [-k <key>] [-lm <type>] [-x <evalset>] [-t <task>] <iter> [<iter> ...]";
+	exit 1;;
+			-v)	verbose=1;;
+			-k)	key=$2; shift;;
+			-lm)	lmtype=$2; shift;;
+			-n)	name=$2; shift;;
+			-x)	xevalset=$2; shift;;
+			-t)	task=$2; shift;;
+			-lst) xeval=$2; shift;;
+			-*)	echo "$0: unknown option $1";
+				exit 1;;
+			*)	break;;
+		esac
+		shift
+	done
+
+#
+#	Argumente
+#
+if [ -z "$*" ]; then
+	echo "Usage is:"
+	echo "	"`basename $0`" [-v] [-n <name>] [-k <key>] [-lm <type>] [-x <evalset>] [-t <task>] <iter> [<iter> ...]";
+	exit 1
+fi
+
+#
+# Konzept-Definitionen
+#
+concept=`find $relpath -maxdepth 1 -name $name*.swu*.def`
+if [ -z "$concept" ]; then
+	echo "no SWU definitions found for '"$name"'."
+	exit 1
+fi
+concept=`echo $concept | cut -d" " -f1`
+if [ $verbose ]; then
+	echo "using SWU definitions from '"$concept"'."
+fi
+
+#
+# Lexikon-Definitionen
+#
+lexdef=`find $relpath -maxdepth 1 -name Character-word.def`
+if [ -z "$lexdef" ]; then
+	echo "no lexicon definitions found for task '"$task"' on '"$name"'."
+	exit 1
+fi
+lexdef=`echo $lexdef | cut -d" " -f1`
+if [ $verbose ]; then
+	echo "using lexicon definitions from '"$lexdef"'."
+fi
+lex=`dirname $lexdef`/`basename $lexdef .def`.lex
+if [ ! -f $lex ]; then
+	echo "lexicon '"$lex"' associated with '"$lexdef"' missing."
+	exit 1
+fi
+
+#
+# Sprachmodell
+#
+lm=`find $relpath -maxdepth 1 -name "$name*.$lmtype"`
+if [ -z "$lm" ]; then
+	echo "no language model for task '"$task"' of type '"$lmtype"' found."
+	exit 1
+fi
+lm=`echo $lm | cut -d" " -f1`
+if [ $verbose ]; then
+	echo "using language model from '"$lm"'."
+fi
+
+#
+# Evaluierungsset
+#
+#xeval=`find $relpath -maxdepth 1 -name $name.test.lst`
+if [ -z "$xeval" ]; then
+	echo "no evaluation set definitions found for '"$name.Xeval-$xevalset"'."
+	exit 1
+fi
+xeval=`echo $xeval | cut -d" " -f1`
+if [ $verbose ]; then
+	echo "using evaluation set definition in '"$xeval"'."
+fi
+
+#ABEAM="75 50"
+ABEAM="75"
+#WOPE="15"
+WOPE="15"
+#LING="3 4 5 7"
+LING="7"
+LBEAM="20"
+
+for iter in $*
+    do
+	codelib=$name.$iter.cl
+	swu=$name.$iter.swu
+	state=$name.$iter.state
+
+    	#if [ ! -f $codelib -o ! -f $swu ]; then
+	Wait $codelib $state
+    	if [ ! -f $codelib -o ! -f $state ]; then
+		echo "parameters for iteration $iter missing - ignoring."
+		continue;
+	fi
+
+	#
+	# generate tree once only
+	#
+	tree=`basename $lex .lex`.tree
+	if [ ! -s $tree ]; then
+		if [ $verbose ]; then
+			echo "creating lexicon tree '"$tree"'."
+		fi
+		command="mm_tree $name.model $concept <$lexdef | sed 's/\\\\//g'"
+		echo "$command >$tree"
+		eval "$command | sort -u >$tree"
+		stat=$?
+		if [ $stat -ne 0 ]; then
+			echo "$0: mm_tree failed with status $stat!"
+			exit $stat
+		fi
+	fi
+
+	#
+	# create swu parameters
+	#
+	if [ ! -s $swu ]; then
+		if [ $verbose ]; then
+			echo "creating sub-word unit parameters '"$swu"'."
+		fi
+		command="mm_swu -a -l 0.00001 $state $name.model $concept >$swu"
+		echo $command
+		eval "$command"
+		stat=$?
+		if [ $stat -ne 0 ]; then
+			echo "$0: mm_swu failed with status $stat!"
+			exit $stat
+		fi
+	fi
+
+for abeam in $ABEAM
+    do
+	for wope in $WOPE
+	    do
+	for ling in $LING
+	    do
+		for lbeam in $LBEAM
+		    do
+			OPT="$PARAM -b $abeam -w $wope -l $ling -B $lbeam"
+			experiment=$name.Xeval-$xevalset.$task-$iter-b$abeam-w$wope-l$ling-B$lbeam$key
+			OUT=$experiment.words
+			ERR=$experiment.err
+
+			if [ ! -f $OUT ]; then
+				echo `hostname`" is processing $experiment ..."
+
+				command="$ISR $OPT $swu $lex $tree $lm $codelib <$xeval >$OUT"
+				#command="$ISR $OPT $swu $lex $tree $lm $codelib < ../a.lst > ../a.words"
+                        	echo $command
+                        	echo $command >$ERR
+                        	echo "$ISR started on "`hostname`" at "`date` >>$ERR
+                        	eval "$command 2>>$ERR"
+                        	stat=$?
+                        	echo "finished with status $? at "`date` >>$ERR
+			fi
+		    done
+	    done
+
+	    done
+    done
+
+    done
+
+#
+# remove swu parameters
+#
+#rm $swu

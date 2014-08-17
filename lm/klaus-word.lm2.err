@@ -1,0 +1,9 @@
+lm_param version 3.03 running on matt under Linux 3.0.0-12-generic.
+lm_param: using back-off smoothing of n-gram distributions.
+lm_param: floor probability is 1e-05 (11.5)!
+lm_param: count data of depth 2 for 26 events (7363 total counts) read.
+lm_param: using standard recursive definition for general distributions.
+lm_param: using absolute shift discounting.
+lm_param: global discounting factor is 1.
+lm_param: no unseen events for history [] - discounting disabled!
+lm_param: WARNING: no unseen events for history []!

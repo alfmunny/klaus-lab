@@ -1,0 +1,195 @@
+#!/bin/sh
+
+#
+# generelle und default Parameter
+#
+verbose=
+relpath=". .. ../.. ../../.."
+
+name=klaus
+# im Training verwendetes Alignment
+align=none
+# Clustergroesse fuer Zustandsclustering nach 1. Trainingsiteration
+cluster=
+
+#
+# Programme
+#
+TRAIN=mm_train
+TRAIN_OPT="-q -b 200"
+
+PARAM=mm_param
+PARAM_OPT=
+
+MD_PARAM=md_param
+MD_PARAM_OPT=
+MD_PARAM_MOD=
+
+#
+#	Optionsbehandlung
+#
+cmdline="$0 $*"		# save command line arguments
+
+while [ $# -gt 0 ];
+	do
+		case $1 in
+			-v)	verbose=1;;
+			-h)
+	echo "Usage is:";
+	echo "	"`basename $0`" [-v] [-n <name>] [-a <align>] [-c <cluster>] <from> <to>";
+	exit 1;;
+			-a)	align=$2; shift;;
+			-c)	cluster=$2; shift;;
+			-n)	name=$2; shift;;
+			-*)	echo "$0: unknown option $1";
+				exit 1;;
+			*)	break;;
+		esac
+		shift
+	done
+
+#
+#	Argumente
+#
+if [ -z "$*" ]; then
+	echo "Usage is:";
+	echo "	"`basename $0`" [-v] [-n <name>] [-a <align>] [-c <cluster>] <from> <to>";
+	exit 1
+fi
+
+if [ $verbose ]; then
+	echo "running '"$cmdline"' ..."
+fi
+
+#
+# Konzept-Definitionen
+#
+concept=`find $relpath -maxdepth 1 -name $name.swu_part*.def`
+if [ -z "$concept" ]; then
+	echo "no SWU definitions found for '"$name"'."
+	exit 1
+fi
+concept=`echo $concept | cut -d" " -f1`
+if [ $verbose ]; then
+	echo "using SWU definitions from '"$concept"'."
+fi
+
+#
+# Trainings-Definition
+#
+#nur mit Trainningdaten
+train=`find $relpath -maxdepth 1 -name $name.Corpus.train`
+#mit alle  Daten
+#train=`find $relpath -maxdepth 1 -name $name.Corpus_all.train`
+if [ -z "$train" ]; then
+	echo "no training definition found for '"$name"'."
+	exit 1
+fi
+train=`echo $train | cut -d" " -f1`
+if [ $verbose ]; then
+	echo "using training definition in '"$train"'."
+fi
+
+#
+#	Argumente
+#
+from=$1
+max_iter=$2
+
+if [ -z "$from" -o -z "$max_iter" ]; then
+	echo "usage is: $0 <from-iter> <to-iter>"
+	exit 1
+fi
+
+#
+# Trainingsiterationen
+#
+while [ $from -le $max_iter ];
+    do
+	to=`expr $from + 1`
+
+	if [ ! -s $name.$to.state ]; then
+		#
+		# gemeinsam fuer Parametertraining & Parametererzeugung
+		#
+		codelib=$name.$from.cl
+		state=$name.$from.state
+		if [ $from -eq 0 ]; then
+			model=$name.$from.model
+		else
+			model=$name.model
+		fi
+		accu=$name.$to.accu
+		update=$name.$to.update
+
+		#
+		# Parametertraining
+		#
+		if [ ! -s $name.$to.accu ]; then
+			echo "training iteration #"$from in progress ...
+
+			err=$accu.err
+			opt=""
+			if [ ! -z "$align" ]; then
+				opt="-a $align"
+			fi
+
+			command="$TRAIN $TRAIN_OPT $opt -U $update $codelib $state $model $concept <$train >$accu"
+			echo "$TRAIN started on "`hostname`" at "`date` >$err
+			echo $command
+			eval "$command 2>>$err"
+			stat=$?
+			echo "finished with status $? at "`date` >>$err
+			if [ $stat -ne 0 ]; then
+				echo "$0: $TRAIN failed with status $stat!"
+				exit $stat
+			fi
+		fi
+
+		#
+		# Parametererzeugung fuer HMMs 
+		#
+		out=$name.$to.state
+		err=$out.err
+		opt=""
+		if [ $from -eq 0 ]; then
+			opt="$opt -M $name.model"
+		fi
+		if [ ! -z "$cluster" ]; then
+			opt="$opt -c $cluster"
+		fi
+
+		command="$PARAM $opt $state $model $concept <$accu >$out"
+		echo $command
+		eval "$command 2>$err"
+		stat=$?
+		echo "finished with status $? at "`date` >>$err
+		if [ $stat -ne 0 ]; then
+			echo "$0: $PARAM failed with status $stat!"
+			exit $stat
+		fi
+		# ... und wenn erfolgreich, Akkumulatordaten loeschen
+		rm $accu
+
+		#
+		# Parametererzeugung fuer Codebuecher 
+		#
+		out=$name.$to.cl
+		err=$out.err
+
+		command="$MD_PARAM $MD_PARAM_OPT $codelib $MD_PARAM_MOD <$update >$out"
+		echo $command
+		eval "$command 2>$err"
+		stat=$?
+		echo "finished with status $? at "`date` >>$err
+		if [ $stat -ne 0 ]; then
+			echo "$0: $MD_PARAM failed with status $stat!"
+			exit $stat
+		fi
+		# ... und wenn erfolgreich, Akkumulatordaten loeschen
+		rm $update
+
+	fi
+
+	from=$to
+    done

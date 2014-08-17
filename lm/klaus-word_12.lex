@@ -1,0 +1,12 @@
+dass
+nicht
+den
+so
+zu
+ist
+in
+die
+Sie
+der
+und
+ich

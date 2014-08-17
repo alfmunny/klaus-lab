@@ -1,0 +1,122 @@
+#!/bin/sh
+
+#
+# generelle und default Parameter
+#
+verbose=
+relpath=". .. ../.. ../../.."
+
+name=klaus
+
+#
+# Programm(e)
+#
+ALIGN=mm_align
+ALIGN_OPT="-b 100 -H3"
+# zur Steuerung, was alignt wird
+#	<lee>	= Hypothesenebene
+#	0..<n>	= Zustandsebene (level fuer "-s <level>" wie angegeben)
+align_level=
+patch=
+
+#
+#	Optionsbehandlung
+#
+cmdline="$0 $*"		# save command line arguments
+
+while [ $# -gt 0 ];
+	do
+		case $1 in
+			-h)	
+	echo "Usage is:";
+	echo "	"`basename $0`" [-hv] [-n <name>] [-l <level>] [-P <patch def>] <iter>";
+	exit 1;;
+			-v)	verbose=1;;
+			-n)	name=$2; shift;;
+			-l)	align_level=$2; shift;;
+			-P)	patch="$patch $2"; shift;;
+			-*)	echo "$0: unknown option $1";
+				exit 1;;
+			*)	break;;
+		esac
+		shift
+	done
+
+#
+#	Argumente
+#
+iter=$1
+
+if [ -z "$iter" ]; then
+	echo "Usage is:";
+	echo "	"`basename $0`" [-hv] [-n <name>] [-l <level>] <iter>";
+	exit 1
+fi
+
+if [ $verbose ]; then
+	echo "running '"$cmdline"' ..."
+fi
+
+#
+# Konzept-Basis-Definitionen
+#
+concept=`find $relpath -maxdepth 1 -name $name.swu_part*.def`
+if [ -z "$concept" ]; then
+	echo "no SWU definitions found for '"$name"'."
+	exit 1
+fi
+concept=`echo $concept | cut -d" " -f1`
+if [ $verbose ]; then
+	echo "using SWU definitions from '"$concept"'."
+fi
+#
+# Strukturierungsebenen (z.B. der Woerter) entfernen
+#
+def_no_words=`basename $concept .def`.rdef
+cat $concept	\
+| sed "s/:=/%=/"	\
+>$def_no_words
+
+#
+# Trainingsdefinition
+#
+train=`find $relpath -maxdepth 1 -name $name.Corpus.train`
+if [ -z "$train" ]; then
+	echo "no training definition found for '"$name"'."
+	exit 1
+fi
+train=`echo $train | cut -d" " -f1`
+if [ $verbose ]; then
+	echo "using training definition in '"$train"'."
+fi
+
+#
+# Erzeugung des Alignments
+#
+cl=$name.$iter.cl
+state=$name.$iter.state
+if [ $iter -gt 0 ]; then
+	model=$name.model
+else
+	model=$name.0.model
+fi
+out=`basename $train .train`-$iter
+if [ ! -z $align_level ]; then
+	# state-based alignment
+	opt="$opt -s $align_level"
+	out=$out.s${align_level}hyp
+else
+	# model-based alignment
+	out=$out.hyp
+fi
+err=$out.err
+
+command="$ALIGN $ALIGN_OPT $opt $cl $state $model $patch $def_no_words <$train >$out"
+echo $command
+eval "$command 2>$err"
+stat=$?
+echo "finished with status $? at "`date` >>$err
+if [ $stat -ne 0 ]; then
+	echo "$0: $ALIGN failed with status $stat!"
+	exit $stat
+fi

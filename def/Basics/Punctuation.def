@@ -1,0 +1,51 @@
+/*
+ * punctuation symbols
+ */
+@HYPHEN :=	[-] ;
+@COMMA :=	[cm] ;
+@SEMI-COLON :=	[sc] ;
+@COLON :=	[cl] ;
+@EXCLAMATION-MARK :=	[em] ;
+@QUESTION-MARK :=	[qm] ;
+@DOT :=	[dot] ;
+@DOTS :=	[dots] ;
+@QUOTE :=	[sq] ;
+@DOUBLE-QUOTE :=	[dq] ;
+@LEFT-PAREN :=	[lp] ;
+@RIGHT-PAREN :=	[rp] ;
+@STAR :=	[st] ;
+@AMPERSAND :=	[as] ;
+@FORWARD-SLASH :=	[fs] ;
+@PLUS :=	[pl] ;
+
+/*
+ * word-level white-space symbol
+ */
+@SPACE :=	[space] ;
+
+/*
+ * special marker for crossed out (illegible) word(-fragment)s
+ */
+@CROSSED-OUT :=	[XXX] ;
+
+/*
+ * currently unseen punctuation symbols
+ */
+[lt] := [XXX] ;
+@LESS-THAN :=	[lt] ;
+[gt] := [XXX] ;
+@GREATER-THAN :=	[gt] ;
+[eq] := [XXX] ;
+@EQUAL :=	[eq] ;
+[bs] := [XXX] ;
+@BACKSLASH :=	[bs] ;
+[lb] := [XXX] ;
+@LEFT-BRACE :=	[lb] ;
+[rb] := [XXX] ;
+@RIGHT-BRACE :=	[rb] ;
+[do] := [XXX] ;
+@DOLLAR :=	[do] ;
+[at] := [XXX] ;
+@AT :=	[at] ;
+[pc] := [XXX] ;
+@PERCENT :=	[pc] ;

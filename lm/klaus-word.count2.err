@@ -1,0 +1,4 @@
+lm_count version 2.04 running on matt under Linux 3.0.0-12-generic.
+lm_count: using external lexicon with 13 entries.
+lm_count: 7363 words (11255 unknown) processed.
+lm_count: 0 cpu ms processing 7363 events (0 ms on average).

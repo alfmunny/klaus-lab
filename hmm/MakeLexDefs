@@ -1,0 +1,24 @@
+#!/bin/sh
+
+for src in *.lex
+    do
+    	#
+	# create lexicon definition
+	#
+    	dest=$src.def
+
+	if [ -s $dest ]; then
+		continue
+	fi
+
+	echo "\$LEXICON-"`basename $src .lex`" %= {"	\
+	>$dest
+	cat $src	\
+	| sed	-e 's/$/ |/'	\
+		-e 's/+/\\+/g'	\
+	>>$dest
+	echo "<space> };"	\
+	>>$dest
+
+	echo "$dest created."
+    done

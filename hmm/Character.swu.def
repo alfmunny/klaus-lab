@@ -1,0 +1,26 @@
+/*
+* definition of white space model
+*/
+<space1> <= [space] ;
+<space2> <= [space] [space] ;
+<space3> <= [space] [space] [space] ;
+<space> := { <space1> | <space2> | <space3> };
+/* 
+* word-level white-space symbol
+*/
+@SPACE :=	[space] ;
+/*
+ *defination of Wort 
+ */
+Bahn :=	/B/ /a/ /h/ /n/ ;
+Corpus :=	/C/ /o/ /r/ /p/ /u/ /s/ ;
+das :=	/d/ /a/ /s/ ;
+Delicti :=	/D/ /e/ /l/ /i/ /c/ /t/ /i/ ;
+Ende :=	/E/ /n/ /d/ /e/ ;
+Glueck :=	/G/ /l/ /ue/ /c/ /k/ ;
+Imbisswagen :=	/I/ /m/ /b/ /i/ /s/ /s/ /w/ /a/ /g/ /e/ /n/ ;
+im :=	/i/ /m/ ;
+Mahlzeiten :=	/M/ /a/ /h/ /l/ /z/ /e/ /i/ /t/ /e/ /n/ ;
+seinem :=	/s/ /e/ /i/ /n/ /e/ /m/ ;
+Unterhaltung :=	/U/ /n/ /t/ /e/ /r/ /h/ /a/ /l/ /t/ /u/ /n/ /g/ ;
+Vorfalls :=	/V/ /o/ /r/ /f/ /a/ /l/ /l/ /s/ ;

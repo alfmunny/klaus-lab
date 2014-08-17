@@ -1,0 +1,15 @@
+#! /bin/bash
+
+TEST=$1
+
+name=`basename $TEST .lst`
+
+cat $TEST | cut -d"/" -f9 | cut -d"_" -f1>words.tmp
+sed -i 's/[A-Za-z]/\/&\/ /g' words.tmp 
+sed -i 's/ß/ss/' words.tmp
+sed -i 's/^/@SPACE /'  words.tmp
+sed -i 's/$/@SPACE ;/' words.tmp
+
+paste -d'\t' $TEST words.tmp>$name.chdr
+
+rm words.tmp

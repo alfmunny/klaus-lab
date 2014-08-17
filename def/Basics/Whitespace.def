@@ -1,0 +1,7 @@
+/*
+* definition of white space model
+*/
+<space1> <= [space] ;
+<space2> <= [space] [space] ;
+<space3> <= [space] [space] [space] ;
+<space>	:= { <space1> | <space2> | <space3> } ;

@@ -1,0 +1,32 @@
+#!/bin/sh
+
+name=iam-db
+
+BASE=`echo $PWD | sed s#$name/.*\\$#$name/#`
+SOURCEDIR=$BASE/def/Corpus/
+PENDATA=$BASE
+UFVPATH=/ufv/
+
+for src in $SOURCEDIR/*.Corpus*.txt
+    do
+    	#
+	# create training definition
+	#
+    	dest=`basename $src .txt`.train
+
+	cat $src	\
+	| sed	-e "s#^#$PENDATA$UFVPATH#"	\
+		-e "s/	/.ufv	/"	\
+	| sed "s/+/\\\\+/g"	\
+	| sed	-e "s/ / <space> /g"	\
+		-e "s/	/	<space> /"	\
+		-e "s/<space> @/<space>? @/g"	\
+	>$dest
+
+	#
+	# create list of training data
+	#
+	cat $dest	\
+	| cut -f1	\
+	>`basename $dest .train`.lst
+    done

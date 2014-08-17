@@ -1,0 +1,18 @@
+mm_align version 2.40a running on matt-VirtualBox under Linux 3.11.0-15-generic.
+mm_align: using HMM-library version 2.31.
+	[command line arguments were: 'mm_align -b 100 -H3 klaus.20.cl klaus.20.state klaus.model klaus.swu_part.rdef ']
+mm_align: calculating total emissions probabilities.
+mm_align: WARNING: beam for mixture pruning not specified - using default 14!
+mm_align: beam width is 100!
+mm_align: floor probability is 1e-05 (11.5)!
+mm_align: probabilities less than 0.001 will be ignored!
+mm_align: code library with 1 codebooks using 12 features read.
+mm_align: WARNING: line longer than 8192 characters read - expanding!
+mm_align: 312 states read.
+mm_align: 75 models read.
+mm_align: 2305 compound concepts read.
+mm_align: 38421825 states activated (43.6%), 38.4279 on average, 21.7% pruned.
+mm_align: 28801533 emissions calculated (32.7%), 3743473 nulls inferred (13%).
+mm_align: 3130104 densities evaluated ( 0.3%), on average 3.1306 per frame.
+mm_align: 112727 ms (111080 cpu ms) processing 999841 frames (RTF = 0.011).
+finished with status 0 at Fri Feb 21 01:07:42 CET 2014

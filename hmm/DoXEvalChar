@@ -1,0 +1,169 @@
+#!/bin/sh
+
+#
+# generelle und default Parameter
+#
+verbose=
+#relpath=". .. ../.. ../../.."
+relpath=". .. ../.. ../../.. ../../../.."
+
+name=klaus
+charset=German
+#xevalset=t0v1		# also available: t0v2, t0t
+xevalset=a
+key=			# zur Markierung von Varianten
+
+#
+# Programme
+#
+ALIGN=mm_align
+
+#PARAM="-T 0 -i 0.001 -f 1e-5"
+PARAM=
+
+#
+#	Optionsbehandlung
+#
+cmdline="$0 $*"		# save command line arguments
+
+while [ $# -gt 0 ];
+	do
+		case $1 in
+			-h)
+	echo "Usage is:";
+	echo "	"`basename $0`" [-v] [-n <name>] [-c <charset>] [-x <evalset>] <iter> [<iter> ...]";
+	exit 1;;
+			-v)	verbose=1;;
+			-k)	key=$2; shift;;
+			-n)	name=$2; shift;;
+			-c)	charset=$2; shift;;
+			-x)	xevalset=$2; shift;;
+			-*)	echo "$0: unknown option $1";
+				exit 1;;
+			*)	break;;
+		esac
+		shift
+	done
+
+#
+#	Argumente
+#
+if [ -z "$*" ]; then
+	echo "Usage is:"
+	echo "	"`basename $0`" [-v] [-n <name>] [-c <charset>] [-x <evalset>] <iter> [<iter> ...]";
+	exit 1
+fi
+
+if [ $verbose ]; then
+	echo "running '"$cmdline"' ..."
+fi
+
+#
+# Konzept-Definitionen
+#
+concept=`find $relpath -maxdepth 1 -name $name.swu_part*.def`
+if [ -z "$concept" ]; then
+	echo "no SWU definitions found for '"$name"'."
+	exit 1
+fi
+concept=`echo $concept | cut -d" " -f1`
+if [ $verbose ]; then
+	echo "using SWU definitions from '"$concept"'."
+fi
+
+#
+# Lexikon-Definitionen
+#
+lexdef=`find $relpath -maxdepth 1 -name $charset.clex.def`
+if [ -z "$lexdef" ]; then
+	echo "no '"$charset"' character set definitions found for '"$name"'."
+	exit 1
+fi
+lexdef=`echo $lexdef | cut -d" " -f1`
+if [ $verbose ]; then
+	echo "using lexicon definitions from '"$lexdef"'."
+fi
+lex=`head -1 $lexdef | sed 's/[ 	].*$//'`
+if [ $verbose ]; then
+	echo "effective lexicon '"$lex"' will be used."
+fi
+
+# #
+# # Sprachmodell
+# #
+# lm=`find $relpath -maxdepth 1 -name $name.$lextype*.$lmtype`
+# if [ -z "$lm" ]; then
+# 	echo "no language model for lexicon '"$lex"' of type '"$lmtype"' found."
+# 	exit 1
+# fi
+# lm=`echo $lm | cut -d" " -f1`
+# if [ $verbose ]; then
+# 	echo "using language model from '"$lm"'."
+# fi
+
+#
+# Evaluierungsset
+#
+xeval=`find $relpath -maxdepth 1 -name $name.test_12_550.lst`
+if [ -z "$xeval" ]; then
+	echo "no evaluation set definitions found for '"$name.Xeval-$xevalset"'."
+	exit 1
+fi
+xeval=`echo $xeval | cut -d" " -f1`
+if [ $verbose ]; then
+	echo "using evaluation set definition in '"$xeval"'."
+fi
+
+#BEAM="75 50"
+BEAM="75"
+WOPE="15"
+
+for iter in $*
+    do
+	codelib=$name.$iter.cl
+	state=$name.$iter.state
+	
+#echo "marke0"
+#	echo "cygwin kann kein Wait" 
+#sleep 5s	
+#$codelib $state
+#echo "marke1"
+
+	Wait $codelib $state
+
+    	if [ ! -f $codelib -o ! -f $state ]; then
+		echo "parameters for iteration $iter missing - ignoring."
+		continue;
+	fi
+
+	if [ $iter -eq 0 ]; then
+		model=$name.$iter.model
+	else
+		model=$name.model
+	fi
+
+	for beam in $BEAM
+	    do
+		for wope in $WOPE
+		    do
+			OPT="$PARAM -b $beam -w $wope"
+			experiment=`basename $xeval .lst`-$iter-b$beam-w$wope$key
+			out=$experiment.chars
+			err=$experiment.err
+
+			if [ ! -f $out ]; then
+				echo `hostname`" is processing $experiment ..."
+
+				command="$ALIGN $OPT $codelib $state $model $concept $lexdef >$out"
+                        	echo $command
+                        	echo $command >$err
+                        	echo "$ALIGN started on "`hostname`" at "`date` >>$err
+				cat $xeval      \
+				| sed "s/\$/	$lex + ;/"      \
+				| eval "$command 2>>$err"
+                        	stat=$?
+                        	echo "finished with status $? at "`date` >>$err
+			fi
+		    done
+	    done
+    done

@@ -1,0 +1,11 @@
+#! /bin/bash
+
+echo '#'>testlist.tmp
+
+for word in `cat klaus.test_85.lst`
+do
+	grep $word klaus.Corpus.train>>testlist.tmp
+done
+
+grep -v '#' testlist.tmp	\
+	| sed 's/<space> //g'>klaus.word_85.eval

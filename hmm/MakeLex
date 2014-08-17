@@ -1,0 +1,21 @@
+#! /bin/bash
+
+CORPUS=klaus
+
+SRC=$HOME/esmeralda/lab/klaus/doc
+srctype="bmp"
+
+cats=`(cd $SRC; ls)`
+
+echo '#'>lexicon
+
+for cat in $cats
+do
+	echo '#'$cat>>lexicon
+	docs=`cd $SRC/$cat; ls *.bmp`
+	for doc in $docs
+	do
+	base=`basename $doc .bmp`
+	echo $base>>lexicon
+done
+done

@@ -1,0 +1,127 @@
+#!/bin/sh
+
+#
+# generelle und default Parameter
+#
+verbose=
+relpath=". .. ../.. ../../.."
+
+name=klaus
+type=Linear
+uniform="-u 100x4"
+
+#
+# Programm(e)
+#
+INIT=mm_init
+gen_opt=
+#model_opt="-u 10x10"
+model_opt=
+MODEL_EXT="ms"
+
+
+#
+#	Optionsbehandlung
+#
+cmdline="$0 $*"		# save command line arguments
+
+while [ $# -gt 0 ];
+	do
+		case $1 in
+			-h)	
+	echo "Usage is:";
+	echo "	"`basename $0`" [-hv] [-n <name>] [-t <type>] [-O <gen. opt>] [-M <model opt.>]";
+	exit 1;;
+			-v)	verbose=1;;
+			-n)	name=$2; shift;;
+			-t)	type=$2; shift;;
+			-O)	gen_opt="$gen_opt $2"; shift;;
+			-M)	model_opt="$model_opt $2"; shift;;
+			-*)	echo "$0: unknown option $1";
+				exit 1;;
+			*)	break;;
+		esac
+		shift
+	done
+
+#
+#	Argmuente
+#
+#### keine Argumente
+
+if [ $verbose ]; then
+	echo "running '"$cmdline"' ..."
+fi
+
+#
+# Konzept-Definitionen
+#
+concept=`find $relpath -maxdepth 1 -name $name.swu_part.def`
+if [ -z "$concept" ]; then
+	echo "no SWU definitions found for '"$name"'."
+	exit 1
+fi
+concept=`echo $concept | cut -d" " -f1`
+if [ $verbose ]; then
+	echo "using SWU definitions from '"$concept"'."
+fi
+
+#
+# Modell-Rahmen erzeugen
+#
+mframe=$name.model_frame
+cat $concept	\
+| mm_count -e	\
+| cut -f2	\
+| sort	\
+| sed "s/\$/	$type/"	\
+>$mframe
+if [ $verbose ]; then
+	echo "model topology definition '"$mframe"' created."
+fi
+
+#
+# Initialisierungsdaten
+#
+init=`find $relpath -maxdepth 1 -name $name.Corpus*.ini`
+if [ ! -z "$init" ]; then
+	init=`echo $init | cut -d" " -f1`
+	if [ $verbose ]; then
+		echo "using initalization data in '"$init"'."
+	fi
+else
+#	echo "no initialization data found for '"$name"'."
+#	exit 1
+	echo "no initialization data found for '"$name" - defaulting to uniform'."
+	if [ ! -z "$model_opt" ]; then
+		echo "WARNING: potentially conflicting setting of 'model opt.'!"
+		exit 1
+	fi
+	model_opt=$uniform
+	init="empty.ini"
+	echo -n "" >empty.ini
+
+	if [ $verbose ]; then
+		echo "performing uniform initalization using '"$model_opt"'."
+	fi
+fi
+
+#
+# Initialisierung von HMMs 
+#
+cl=$name.0.cl
+out=$name.0.state
+err=$out.err
+model=$name.0.model
+mstat=$name.mstat
+opt="-M $model -S $mstat"
+
+command="$INIT $opt $gen_opt $cl $mframe $init $model_opt $MODEL_EXT >$out"
+echo $command
+eval "$command 2>$err"
+stat=$?
+echo "finished with status $? at "`date` >>$err
+if [ $stat -ne 0 ]; then
+	echo "$0: $INIT failed with status $stat!"
+	exit $stat
+fi

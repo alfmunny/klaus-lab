@@ -1,0 +1,7 @@
+!# /bin/bash
+
+echo 'result' > result.md
+echo >> result.md
+../../DoXEvalWord110 -v 20
+
+

@@ -1,0 +1,29 @@
+#! /bin/bash
+
+# make sure excute this script in hmm/
+
+echo "enter char/"
+cd char
+
+echo "deleting models if there are any in char/ ..."
+rm klaus.[0-9]*
+
+echo "trianing"
+../DoKMeans -v; ../DoInit -v; ../DoTrain -v 0 19; ../DoLabel -v 20;
+
+echo "enter word/"
+cd ..
+cd word
+
+echo "deleting models if there are any in word/ ..."
+rm klaus.[0-9]*
+
+echo "trianing"
+./makeini.sh 20; 
+../DoKMeans -v; 
+../DoInit -v; 
+../DoTrain -v 0 19; 
+
+echo "deleting results if there are any..."
+rm klaus.*.words
+../DoXEvalWord -v 20;

@@ -1,0 +1,29 @@
+#! /bin/bash
+
+# make sure excute this script in hmm/
+
+echo "enter linear/"
+cd linear
+
+echo "training"
+../../DoKMeans -v; ../../DoInit -v; ../../DoTrain -v 0 19; ../../DoLabel -v 20;
+cp klaus.0.cl ../bakis
+cp klaus.0.cl ../nobakis
+
+echo "enter bakis/"
+cd ..
+cd bakis
+
+echo "training"
+./makeini.sh 20; 
+../../DoInit -v -t Bakis; 
+../../DoTrain -v 0 19; 
+
+echo "enter nobakis/"
+cd ..
+cd nobakis 
+
+echo "training"
+./makeini.sh 20; 
+../../DoInit -v; 
+../../DoTrain -v 0 19; 

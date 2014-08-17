@@ -1,0 +1,91 @@
+running '../../DoInit -v' ...
+using SWU definitions from '../../iam-db.swu.def'.
+mm_count version 1.01 running on connery.cs.uni-dortmund.de under Darwin 9.8.0.
+mm_count: using library mm 2.40.
+mm_count: 0 compound concepts read.
+model topology definition 'iam-db.model_frame' created.
+using initalization data in './iam-db.Corpus-a-20.ini'.
+mm_init -M iam-db.0.model -S iam-db.mstat iam-db.0.cl iam-db.model_frame ./iam-db.Corpus-a-20.ini ms >iam-db.0.state
+running '../../DoTrain -v 0 19' ...
+using SWU definitions from '../../iam-db.swu.def'.
+using training definition in '../../iam-db.Corpus-a.train'.
+training iteration #0 in progress ...
+mm_train -q -b 200 -a none -U iam-db.1.update iam-db.0.cl iam-db.0.state iam-db.0.model ../../iam-db.swu.def <../../iam-db.Corpus-a.train >iam-db.1.accu
+mm_param -M iam-db.model iam-db.0.state iam-db.0.model ../../iam-db.swu.def <iam-db.1.accu >iam-db.1.state
+md_param iam-db.0.cl <iam-db.1.update >iam-db.1.cl
+training iteration #1 in progress ...
+mm_train -q -b 200 -a none -U iam-db.2.update iam-db.1.cl iam-db.1.state iam-db.model ../../iam-db.swu.def <../../iam-db.Corpus-a.train >iam-db.2.accu
+mm_param iam-db.1.state iam-db.model ../../iam-db.swu.def <iam-db.2.accu >iam-db.2.state
+md_param iam-db.1.cl <iam-db.2.update >iam-db.2.cl
+training iteration #2 in progress ...
+mm_train -q -b 200 -a none -U iam-db.3.update iam-db.2.cl iam-db.2.state iam-db.model ../../iam-db.swu.def <../../iam-db.Corpus-a.train >iam-db.3.accu
+mm_param iam-db.2.state iam-db.model ../../iam-db.swu.def <iam-db.3.accu >iam-db.3.state
+md_param iam-db.2.cl <iam-db.3.update >iam-db.3.cl
+training iteration #3 in progress ...
+mm_train -q -b 200 -a none -U iam-db.4.update iam-db.3.cl iam-db.3.state iam-db.model ../../iam-db.swu.def <../../iam-db.Corpus-a.train >iam-db.4.accu
+mm_param iam-db.3.state iam-db.model ../../iam-db.swu.def <iam-db.4.accu >iam-db.4.state
+md_param iam-db.3.cl <iam-db.4.update >iam-db.4.cl
+training iteration #4 in progress ...
+mm_train -q -b 200 -a none -U iam-db.5.update iam-db.4.cl iam-db.4.state iam-db.model ../../iam-db.swu.def <../../iam-db.Corpus-a.train >iam-db.5.accu
+mm_param iam-db.4.state iam-db.model ../../iam-db.swu.def <iam-db.5.accu >iam-db.5.state
+md_param iam-db.4.cl <iam-db.5.update >iam-db.5.cl
+training iteration #5 in progress ...
+mm_train -q -b 200 -a none -U iam-db.6.update iam-db.5.cl iam-db.5.state iam-db.model ../../iam-db.swu.def <../../iam-db.Corpus-a.train >iam-db.6.accu
+mm_param iam-db.5.state iam-db.model ../../iam-db.swu.def <iam-db.6.accu >iam-db.6.state
+md_param iam-db.5.cl <iam-db.6.update >iam-db.6.cl
+training iteration #6 in progress ...
+mm_train -q -b 200 -a none -U iam-db.7.update iam-db.6.cl iam-db.6.state iam-db.model ../../iam-db.swu.def <../../iam-db.Corpus-a.train >iam-db.7.accu
+mm_param iam-db.6.state iam-db.model ../../iam-db.swu.def <iam-db.7.accu >iam-db.7.state
+md_param iam-db.6.cl <iam-db.7.update >iam-db.7.cl
+training iteration #7 in progress ...
+mm_train -q -b 200 -a none -U iam-db.8.update iam-db.7.cl iam-db.7.state iam-db.model ../../iam-db.swu.def <../../iam-db.Corpus-a.train >iam-db.8.accu
+mm_param iam-db.7.state iam-db.model ../../iam-db.swu.def <iam-db.8.accu >iam-db.8.state
+md_param iam-db.7.cl <iam-db.8.update >iam-db.8.cl
+training iteration #8 in progress ...
+mm_train -q -b 200 -a none -U iam-db.9.update iam-db.8.cl iam-db.8.state iam-db.model ../../iam-db.swu.def <../../iam-db.Corpus-a.train >iam-db.9.accu
+mm_param iam-db.8.state iam-db.model ../../iam-db.swu.def <iam-db.9.accu >iam-db.9.state
+md_param iam-db.8.cl <iam-db.9.update >iam-db.9.cl
+training iteration #9 in progress ...
+mm_train -q -b 200 -a none -U iam-db.10.update iam-db.9.cl iam-db.9.state iam-db.model ../../iam-db.swu.def <../../iam-db.Corpus-a.train >iam-db.10.accu
+mm_param iam-db.9.state iam-db.model ../../iam-db.swu.def <iam-db.10.accu >iam-db.10.state
+md_param iam-db.9.cl <iam-db.10.update >iam-db.10.cl
+training iteration #10 in progress ...
+mm_train -q -b 200 -a none -U iam-db.11.update iam-db.10.cl iam-db.10.state iam-db.model ../../iam-db.swu.def <../../iam-db.Corpus-a.train >iam-db.11.accu
+mm_param iam-db.10.state iam-db.model ../../iam-db.swu.def <iam-db.11.accu >iam-db.11.state
+md_param iam-db.10.cl <iam-db.11.update >iam-db.11.cl
+training iteration #11 in progress ...
+mm_train -q -b 200 -a none -U iam-db.12.update iam-db.11.cl iam-db.11.state iam-db.model ../../iam-db.swu.def <../../iam-db.Corpus-a.train >iam-db.12.accu
+mm_param iam-db.11.state iam-db.model ../../iam-db.swu.def <iam-db.12.accu >iam-db.12.state
+md_param iam-db.11.cl <iam-db.12.update >iam-db.12.cl
+training iteration #12 in progress ...
+mm_train -q -b 200 -a none -U iam-db.13.update iam-db.12.cl iam-db.12.state iam-db.model ../../iam-db.swu.def <../../iam-db.Corpus-a.train >iam-db.13.accu
+mm_param iam-db.12.state iam-db.model ../../iam-db.swu.def <iam-db.13.accu >iam-db.13.state
+md_param iam-db.12.cl <iam-db.13.update >iam-db.13.cl
+training iteration #13 in progress ...
+mm_train -q -b 200 -a none -U iam-db.14.update iam-db.13.cl iam-db.13.state iam-db.model ../../iam-db.swu.def <../../iam-db.Corpus-a.train >iam-db.14.accu
+mm_param iam-db.13.state iam-db.model ../../iam-db.swu.def <iam-db.14.accu >iam-db.14.state
+md_param iam-db.13.cl <iam-db.14.update >iam-db.14.cl
+training iteration #14 in progress ...
+mm_train -q -b 200 -a none -U iam-db.15.update iam-db.14.cl iam-db.14.state iam-db.model ../../iam-db.swu.def <../../iam-db.Corpus-a.train >iam-db.15.accu
+mm_param iam-db.14.state iam-db.model ../../iam-db.swu.def <iam-db.15.accu >iam-db.15.state
+md_param iam-db.14.cl <iam-db.15.update >iam-db.15.cl
+training iteration #15 in progress ...
+mm_train -q -b 200 -a none -U iam-db.16.update iam-db.15.cl iam-db.15.state iam-db.model ../../iam-db.swu.def <../../iam-db.Corpus-a.train >iam-db.16.accu
+mm_param iam-db.15.state iam-db.model ../../iam-db.swu.def <iam-db.16.accu >iam-db.16.state
+md_param iam-db.15.cl <iam-db.16.update >iam-db.16.cl
+training iteration #16 in progress ...
+mm_train -q -b 200 -a none -U iam-db.17.update iam-db.16.cl iam-db.16.state iam-db.model ../../iam-db.swu.def <../../iam-db.Corpus-a.train >iam-db.17.accu
+mm_param iam-db.16.state iam-db.model ../../iam-db.swu.def <iam-db.17.accu >iam-db.17.state
+md_param iam-db.16.cl <iam-db.17.update >iam-db.17.cl
+training iteration #17 in progress ...
+mm_train -q -b 200 -a none -U iam-db.18.update iam-db.17.cl iam-db.17.state iam-db.model ../../iam-db.swu.def <../../iam-db.Corpus-a.train >iam-db.18.accu
+mm_param iam-db.17.state iam-db.model ../../iam-db.swu.def <iam-db.18.accu >iam-db.18.state
+md_param iam-db.17.cl <iam-db.18.update >iam-db.18.cl
+training iteration #18 in progress ...
+mm_train -q -b 200 -a none -U iam-db.19.update iam-db.18.cl iam-db.18.state iam-db.model ../../iam-db.swu.def <../../iam-db.Corpus-a.train >iam-db.19.accu
+mm_param iam-db.18.state iam-db.model ../../iam-db.swu.def <iam-db.19.accu >iam-db.19.state
+md_param iam-db.18.cl <iam-db.19.update >iam-db.19.cl
+training iteration #19 in progress ...
+mm_train -q -b 200 -a none -U iam-db.20.update iam-db.19.cl iam-db.19.state iam-db.model ../../iam-db.swu.def <../../iam-db.Corpus-a.train >iam-db.20.accu
+mm_param iam-db.19.state iam-db.model ../../iam-db.swu.def <iam-db.20.accu >iam-db.20.state
+md_param iam-db.19.cl <iam-db.20.update >iam-db.20.cl

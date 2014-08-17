@@ -1,0 +1,30 @@
+#!/bin/sh
+
+#XEVALS="t0v1 t0v2 t0t"
+#XEVALS="a b"
+XEVALS="550"
+
+for xeval in $XEVALS
+    do
+	#evals1=`ls *.Xeval-$xeval-?-*ceval 2>/dev/null`
+	#evals2=`ls *.Xeval-$xeval-??-*ceval 2>/dev/null`
+#	evals1=`ls *$xeval-?-*ceval 2>/dev/null`
+#	evals2=`ls *$xeval-??-*ceval 2>/dev/null`
+	evals1=`ls *$xeval*.ceval`
+
+	if [ ! -z "$evals1" -o ! -z "$evals2" ]; then
+		echo "Evaluation results on '$xeval':"
+		echo "==============================="
+    
+		if [ ! -z "$evals1" ]; then
+			EvalSimple -c -I $evals1 2>/dev/null
+		fi
+
+		if [ ! -z "$evals2" ]; then
+			EvalSimple -c -I $evals2 2>/dev/null
+		fi
+
+		echo ""
+	fi
+		
+done

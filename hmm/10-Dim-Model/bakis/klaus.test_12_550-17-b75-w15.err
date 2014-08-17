@@ -1,0 +1,21 @@
+mm_align -b 75 -w 15 klaus.17.cl klaus.17.state klaus.model ../../klaus.swu_part.def ../../German.clex.def >klaus.test_12_550-17-b75-w15.chars
+mm_align started on matt-VirtualBox at Sat Aug 16 18:37:48 CEST 2014
+mm_align version 2.40a running on matt-VirtualBox under Linux 3.11.0-15-generic.
+mm_align: using HMM-library version 2.31.
+	[command line arguments were: 'mm_align -b 75 -w 15 klaus.17.cl klaus.17.state klaus.model ../../klaus.swu_part.def ../../German.clex.def ']
+mm_align: calculating total emissions probabilities.
+mm_align: WARNING: beam for mixture pruning not specified - using default 14!
+mm_align: beam width is 75!
+mm_align: word penalty is 15!
+mm_align: floor probability is 1e-05 (11.5)!
+mm_align: probabilities less than 0.001 will be ignored!
+mm_align: code library with 1 codebooks using 10 features read.
+mm_align: WARNING: line longer than 8192 characters read - expanding!
+mm_align: 580 states read.
+mm_align: 75 models read.
+mm_align: 2306 compound concepts read.
+mm_align: 35973636 states activated (84.1%), 501.99 on average, 13.4% pruned.
+mm_align: 32105510 emissions calculated (75%), 8984068 nulls inferred (28%).
+mm_align: 260454 densities evaluated ( 0.4%), on average 3.63448 per frame.
+mm_align: 9982 ms (9680 cpu ms) processing 71662 frames (RTF = 0.014).
+finished with status 0 at Sat Aug 16 18:37:59 CEST 2014

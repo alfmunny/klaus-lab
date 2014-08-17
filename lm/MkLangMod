@@ -1,0 +1,105 @@
+#!/bin/sh
+
+#
+# generelle und default Parameter
+#
+verbose=
+
+name=klaus
+trainset=a
+task=word
+smooth=S1
+tag=		# for specifying special language model variants
+
+TRAIN=klaus_train.txt
+
+#
+# Programme
+#
+COUNT=lm_count
+#COUNT_OPT=	# see below
+PARAM=lm_param
+PARAM_OPT=
+
+#
+#	Optionsbehandlung
+#
+while [ $# -gt 0 ];
+	do
+		case $1 in
+			-v)	verbose=1;;
+			-n)	name=$2; shift;;
+			-t)	task=$2; shift;;
+			-s)	smooth=$2; shift;
+				tag="$tag-$smooth";;
+			-*)	echo "$0: unknown option $1";
+				exit 1;;
+			*)	break;;
+		esac
+		shift
+	done
+
+#
+# Argumente
+#
+if [ -z "$1" -a -z "$2" ]; then
+        echo "Usage is:"
+        echo "  "`basename $0`" [-v] [-n <name>] [-t <task>] [-s <smooth>] <length>"
+        exit 1
+fi
+
+length=$1
+
+#
+# lexicon / task used
+#
+#lex=$name.Corpus-$task.lex	# default lexicon: Corpus lexicon
+#lex=klaus-word.lex
+lex=klaus-word_12.lex
+
+# #unk="\"<UNK>\""
+# unk="\"<ga>\""		# wegen Kompatibilitaet zu Liwicki-Experimenten
+# unk_lex=`basename $lex .lex`-unk.lex
+# 
+# #
+# # falls unbekannte Woerter auf $unk abgebildet werden sollen
+# #
+# COUNT_OPT="-b @ -l $lex -u $unk -U $unk_lex"
+# 
+# #
+# # unbekannte Woerter werden ignoriert (finden sich in $unk_lex)
+# #
+# #COUNT_OPT="-b @ -l $lex -U $unk_lex"	# kein mapping auf <UNK>
+
+#
+# es existieren per definitionem keine unbekannten Woerter
+#
+COUNT_OPT="-b @ -l $lex"
+
+# N-Gramm-Zaehlungen erzeugen
+#
+#OUT=$name-$task.count$length
+OUT=$name-$task.count$length
+ERR=$OUT.err
+
+command="$COUNT $COUNT_OPT $length"
+echo $command
+
+cat $TRAIN	\
+| sed 's/;$/@/'	\
+| eval $command >$OUT 2>$ERR
+
+#
+# create language models with given smothing type from counts
+#
+IN=$name-$task.count$length
+OUT=$name-$task$tag.lm$length
+ERR=$OUT.err
+
+command="$PARAM $PARAM_OPT $smooth"
+echo $command
+
+cat $IN	\
+| eval $command >$OUT 2>$ERR
+
+

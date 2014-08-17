@@ -1,0 +1,53 @@
+#!/bin/sh
+
+name=klaus
+BASE=`echo $PWD | sed s#$name/.*\\$#$name#`/ref/
+#SETS="$name.Xeval-t0t $name.Xeval-t0v1 $name.Xeval-t0v2"
+#SETS="$name.Xeval-a"
+SETS="$name.test_12_550"
+
+TEST=`which test`
+
+for set in $SETS
+    do
+	HYPS="$set*.chars"
+	#HDR="$BASE/$name/$set.chdr"
+	HDR="$BASE/$set.chdr"
+
+	for hyp in $HYPS
+	    do
+		eval=`basename $hyp .chars`.ceval
+
+		$TEST $hyp -nt $eval
+		if [ ! -f $eval -a -f $hyp -o $? -eq 0 -a -f $hyp ]; then
+			echo "creating $eval ..."
+			cat $hyp	\
+			| sed	-e 's/^?$/;/'	\
+				-e "s/\<[0-9]-//g"	\
+			| paste $HDR -	\
+			>$eval
+		fi
+	    done
+    done
+
+#for set in $SETS
+#    do
+#	HYPS="$set*.words"
+#	#HDR="$BASE/$name/$set.whdr"
+#	HDR="$BASE/$set.whdr"
+#
+#	for hyp in $HYPS
+#	    do
+#		eval=`basename $hyp .words`.weval
+#
+#		$TEST $hyp -nt $eval
+#		if [ ! -f $eval -a -f $hyp -o $? -eq 0 -a -f $hyp ]; then
+#			echo "creating $eval ..."
+#			cat $hyp	\
+#			| sed	-e 's/^?$/;/'	\
+#				-e "s/\<[0-9]-//g"	\
+#			| paste $HDR -	\
+#			>$eval
+#		fi
+#	    done
+#    done

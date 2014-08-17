@@ -1,0 +1,22 @@
+#
+# punctuation symbols (valid *within* words)
+#
+.
+,
+:
+;
+?
+/
+\
+'
+"
++
+-
+*
+(
+)
+[
+]
+$
+@
+_

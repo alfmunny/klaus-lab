@@ -1,0 +1,146 @@
+/*
+* definition of white space model
+*/
+<space1> <= [space] ;
+<space2> <= [space] [space] ;
+<space3> <= [space] [space] [space] ;
+<space>	:= { <space1> | <space2> | <space3> } ;
+/*
+ * punctuation symbols
+ */
+@HYPHEN :=	[-] ;
+@COMMA :=	[cm] ;
+@SEMI-COLON :=	[sc] ;
+@COLON :=	[cl] ;
+@EXCLAMATION-MARK :=	[em] ;
+@QUESTION-MARK :=	[qm] ;
+@DOT :=	[dot] ;
+@DOTS :=	[dots] ;
+@QUOTE :=	[sq] ;
+@DOUBLE-QUOTE :=	[dq] ;
+@LEFT-PAREN :=	[lp] ;
+@RIGHT-PAREN :=	[rp] ;
+@STAR :=	[st] ;
+@AMPERSAND :=	[as] ;
+@FORWARD-SLASH :=	[fs] ;
+@PLUS :=	[pl] ;
+
+/*
+ * word-level white-space symbol
+ */
+@SPACE :=	[space] ;
+
+/*
+ * special marker for crossed out (illegible) word(-fragment)s
+ */
+@CROSSED-OUT :=	[XXX] ;
+
+/*
+ * currently unseen punctuation symbols
+ */
+[lt] := [XXX] ;
+@LESS-THAN :=	[lt] ;
+[gt] := [XXX] ;
+@GREATER-THAN :=	[gt] ;
+[eq] := [XXX] ;
+@EQUAL :=	[eq] ;
+[bs] := [XXX] ;
+@BACKSLASH :=	[bs] ;
+[lb] := [XXX] ;
+@LEFT-BRACE :=	[lb] ;
+[rb] := [XXX] ;
+@RIGHT-BRACE :=	[rb] ;
+[do] := [XXX] ;
+@DOLLAR :=	[do] ;
+[at] := [XXX] ;
+@AT :=	[at] ;
+[pc] := [XXX] ;
+@PERCENT :=	[pc] ;
+bei :=	/b/ /e/ /i/ ;
+Die :=	/D/ /i/ /e/ ;
+haette :=	/h/ /ae/ /t/ /t/ /e/ ;
+Ihrer :=	/I/ /h/ /r/ /e/ /r/ ;
+ob :=	/o/ /b/ ;
+selbst :=	/s/ /e/ /l/ /b/ /s/ /t/ ;
+da :=	/d/ /a/ ;
+durch :=	/d/ /u/ /r/ /c/ /h/ ;
+Er :=	/E/ /r/ ;
+vom :=	/v/ /o/ /m/ ;
+einer :=	/e/ /i/ /n/ /e/ /r/ ;
+Es :=	/E/ /s/ ;
+ganz :=	/g/ /a/ /n/ /z/ ;
+Heine :=	/H/ /e/ /i/ /n/ /e/ ;
+ihm :=	/i/ /h/ /m/ ;
+Ihre :=	/I/ /h/ /r/ /e/ ;
+kann :=	/k/ /a/ /n/ /n/ ;
+du :=	/d/ /u/ ;
+mehr :=	/m/ /e/ /h/ /r/ ;
+muss :=	/m/ /u/ /ss/ ;
+recht :=	/r/ /e/ /c/ /h/ /t/ ;
+ueber :=	/ue/ /b/ /e/ /r/ ;
+wieder :=	/w/ /i/ /e/ /d/ /e/ /r/ ;
+wuerde :=	/w/ /ue/ /r/ /d/ /e/ ;
+doch :=	/d/ /o/ /c/ /h/ ;
+wenn :=	/w/ /e/ /n/ /n/ ;
+einen :=	/e/ /i/ /n/ /e/ /n/ ;
+gegen :=	/g/ /e/ /g/ /e/ /n/ ;
+nur :=	/n/ /u/ /r/ ;
+sehr :=	/s/ /e/ /h/ /r/ ;
+seyn :=	/s/ /e/ /y/ /n/ ;
+sie :=	/s/ /i/ /e/ ;
+aber :=	/a/ /b/ /e/ /r/ ;
+etwas :=	/e/ /t/ /w/ /a/ /s/ ;
+ihn :=	/i/ /h/ /n/ ;
+jetzt :=	/j/ /e/ /t/ /z/ /t/ ;
+lieber :=	/l/ /i/ /e/ /b/ /e/ /r/ ;
+mein :=	/m/ /e/ /i/ /n/ ;
+was :=	/w/ /a/ /s/ ;
+an :=	/a/ /n/ ;
+bin :=	/b/ /i/ /n/ ;
+wir :=	/w/ /i/ /r/ ;
+wird :=	/w/ /i/ /r/ /d/ ;
+Zeit :=	/Z/ /e/ /i/ /t/ ;
+man :=	/m/ /a/ /n/ ;
+werden :=	/w/ /e/ /r/ /d/ /e/ /n/ ;
+aus :=	/a/ /u/ /s/ ;
+viel :=	/v/ /i/ /e/ /l/ ;
+als :=	/a/ /l/ /s/ ;
+eine :=	/e/ /i/ /n/ /e/ ;
+sind :=	/s/ /i/ /n/ /d/ ;
+nach :=	/n/ /a/ /c/ /h/ ;
+um :=	/u/ /m/ ;
+hat :=	/h/ /a/ /t/ ;
+auch :=	/a/ /u/ /c/ /h/ ;
+auf :=	/a/ /u/ /f/ ;
+meine :=	/m/ /e/ /i/ /n/ /e/ ;
+noch :=	/n/ /o/ /c/ /h/ ;
+haben :=	/h/ /a/ /b/ /e/ /n/ ;
+im :=	/i/ /m/ ;
+wie :=	/w/ /i/ /e/ ;
+des :=	/d/ /e/ /s/ ;
+dem :=	/d/ /e/ /m/ ;
+fuer :=	/f/ /ue/ /r/ ;
+Ihnen :=	/I/ /h/ /n/ /e/ /n/ ;
+habe :=	/h/ /a/ /b/ /e/ ;
+er :=	/e/ /r/ ;
+Ich :=	/I/ /c/ /h/ ;
+es :=	/e/ /s/ ;
+sich :=	/s/ /i/ /c/ /h/ ;
+ein :=	/e/ /i/ /n/ ;
+mit :=	/m/ /i/ /t/ ;
+das :=	/d/ /a/ /s/ ;
+mir :=	/m/ /i/ /r/ ;
+von :=	/v/ /o/ /n/ ;
+mich :=	/m/ /i/ /c/ /h/ ;
+dass :=	/d/ /a/ /ss/ ;
+nicht :=	/n/ /i/ /c/ /h/ /t/ ;
+den :=	/d/ /e/ /n/ ;
+so :=	/s/ /o/ ;
+zu :=	/z/ /u/ ;
+ist :=	/i/ /s/ /t/ ;
+in :=	/i/ /n/ ;
+die :=	/d/ /i/ /e/ ;
+Sie :=	/S/ /i/ /e/ ;
+der :=	/d/ /e/ /r/ ;
+und :=	/u/ /n/ /d/ ;
+ich :=	/i/ /c/ /h/ ;

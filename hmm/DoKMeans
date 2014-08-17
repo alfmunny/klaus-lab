@@ -1,0 +1,120 @@
+#!/bin/bash
+
+#
+# generelle und default Parameter
+#
+verbose=
+relpath=". .. ../.. ../../.."
+
+name=klaus
+dim=12
+nclass=1000
+transform=
+
+
+#
+# Programm(e)
+#
+K_MEANS=md_k_means
+K_MEANS_OPTS="-v -g"
+
+PARAM=md_param
+PARAM_OPTS="-m"
+if [ -z "$transform" ]; then
+	PARAM_MODOPTS=
+else
+	PARAM_MODOPTS="-sc 0- -c7 0- -cf 0-"	# nicht ohne PCA o.Ae!
+fi
+
+#
+#	Optionsbehandlung
+#
+cmdline="$0 $*"		# save command line arguments
+
+while [ $# -gt 0 ];
+	do
+		case $1 in
+			-h)	
+	echo "Usage is:";
+	echo "	"`basename $0`" [-hv] [-n <name>] [-d <dim>] [-c <nclass>] [-t <type>] [-tr <transform>] ";
+	exit 1;;
+			-v)	verbose=1;;
+			-n)	name=$2; shift;;
+			-c)	nclass=$2; shift;;
+			-d)	dim=$2; shift;;
+			-tr*)	transform=$2; shift;;
+			-*)	echo "$0: unknown option $1";
+				exit 1;;
+			*)	break;;
+		esac
+		shift
+	done
+
+#
+#	Argumente
+#
+### keine Argumente noetig
+
+if [ $verbose ]; then
+	echo "running '"$cmdline"' ..."
+fi
+
+#
+# Stichprobenliste und Umsortierung
+#
+#nur mit Tranningdaten
+master=`find $relpath -maxdepth 1 -name $name.Corpus.lst`
+#mit alle Daten
+#master=`find $relpath -maxdepth 1 -name $name.Corpus_all.lst`
+if [ -z "$master" ]; then
+	echo "no training data found for '"$name"'."
+	exit 1
+fi
+master=`echo $master | cut -d" " -f1`
+if [ $verbose ]; then
+	echo "using training data in '"$master"'."
+fi
+# Umsortierung erstellen
+corpus=$name.Corpus.slst
+cat $master \
+| sed "s/\(.*\)\(....\)/\2	\1\2/"	\
+| sort	\
+| cut -f2	\
+>$corpus
+if [ $verbose ]; then
+	echo "scrambled file order in corpus list '"$corpus"'."
+fi
+
+#
+# Codebucherzeugung
+#
+out=$name.0.cl
+raw=$name.0.cl-raw
+err=$out.err
+opt="-n $name"
+if [ ! -z "$transform" ]; then
+	opt="$opt -T $transform"
+fi
+
+command="$K_MEANS $K_MEANS_OPTS $opt $dim $nclass $corpus >$raw"
+echo $command
+eval "$command 2>$err"
+stat=$?
+echo "finished with status $? at "`date` >>$err
+if [ $stat -ne 0 ]; then
+	echo "$0: $K_MEANS failed with status $stat!"
+	exit $stat
+fi
+
+#
+# Codebuch um Klassifikatoren ergaenzen
+#
+command="$PARAM $PARAM_OPTS $raw $PARAM_MODOPTS >$out"
+echo $command
+eval "$command 2>>$err"
+stat=$?
+echo "finished with status $? at "`date` >>$err
+if [ $stat -ne 0 ]; then
+	echo "$0: $PARAM failed with status $stat!"
+	exit $stat
+fi
