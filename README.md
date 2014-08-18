@@ -48,11 +48,11 @@ It's also possible to generate the result by self.
 
 Configuration to do:
 
-* Download the .zip file and override the original folder with new folder in `lab/klaus/`.
+* Download the .zip file and overwrite the original folder with new folder in `lab/klaus/`.
 
-* `doc/` folder is not including. Make sure you have it locally.
+* Folder `doc/` is not including. Make sure you have it locally.
 
-* override the `esmeralda/src/pen/lib/segmentation/fextract.c` with the `fextract.c` which provided in this project root
+* Overwrite the `esmeralda/src/pen/lib/segmentation/fextract.c` with the `fextract.c` which provided in this project root
   and then compile
 
       $ cd esmeralda/src/pen
@@ -71,7 +71,7 @@ $ ./MakeLines
 
 Change the current `lin` to the lines files which you want to generate from.
 
-For example  when generate features with lines with slant, override the current `lin` with `lin_Slant`:
+For example  when generate features with lines with slant, overwrite the current `lin` with `lin_Slant`:
 
 ```
 $ rm -r lin
@@ -94,7 +94,7 @@ $ cd ufv_12dim_Slant
 $ ./merkmale_hmm.sh
 ```
 
-When generate features without slant, override the current `lin` with `lin_noSlant` just like before:
+When generate features without slant, overwrite the current `lin` with `lin_noSlant` just like before:
 
 ```
 $ rm -r lin
@@ -121,7 +121,7 @@ Folder tree of `10dim-Slant`:
       | DoAll    :shell script for generating models
 
 **`DoAll` is a shell script, which run all commands from the very beginning
-to the end.** It means it will override all current models, generating it
+to the end.** It means it will overwrite all current models, generating it
 again and also do the evaluation for models in `bakis` and `nobakis`.
 
 **Attention: please choose the corresponding ufv folder before generating the model.**
@@ -129,7 +129,7 @@ again and also do the evaluation for models in `bakis` and `nobakis`.
 Example: `10dim-Slant`
 
 Generate models for `10dim-Slant`, firstly make sure the current ufv folder is including the corresponding
-features. You can override the current ufv folder with the features you have generated before.
+features. You can overwrite the current ufv folder with the features you have generated before.
 
 ```
 $ rm -r ufv

@@ -9,8 +9,10 @@
   <link rel="stylesheet" href="stylesheets/pygment_trac.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
   <script src="javascripts/main.js"></script>
+  <script src="javascripts/data.js"></script>
   <script src="https://code.highcharts.com/highcharts.js"></script>
   <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="javascripts/diagram.js"></script>
   <!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -56,9 +58,8 @@
       <!-- <h3>
       <a name="models" class="anchor" href="#models"><span class="octicon octicon-link"></span></a>Models
     </h3> -->
+      <!-- <script src="javascripts/diagram.js" type="text/javascript"></script> -->
 
-      <script src="javascripts/diagram.js" type="text/javascript"></script>
-      
 <h2>Foreword</h2>
 
 <p>This page contains the full steps and descriptions to generate models and results.</p>
@@ -108,9 +109,9 @@ The content of <code>SUM</code> will be described here in part <strong>Evaluatio
 <p>Configuration to do:</p>
 
 <ul>
-<li><p>Download the .zip file and override the original folder with new folder in <code>lab/klaus/</code>.</p></li>
-<li><p><code>doc/</code> folder is not including. Make sure you have it locally.</p></li>
-<li><p>override the <code>esmeralda/src/pen/lib/segmentation/fextract.c</code> with the <code>fextract.c</code> which provided in this project root
+<li><p>Download the .zip file and overwrite the original folder with new folder in <code>lab/klaus/</code>.</p></li>
+<li><p>Folder <code>doc/</code> is not including. Make sure you have it locally.</p></li>
+<li><p>Overwrite the <code>esmeralda/src/pen/lib/segmentation/fextract.c</code> with the <code>fextract.c</code> which provided in this project root
 and then compile</p>
 
 <pre><code>$ cd esmeralda/src/pen
@@ -131,7 +132,7 @@ $ make install
 
 <p>Change the current <code>lin</code> to the lines files which you want to generate from.</p>
 
-<p>For example  when generate features with lines with slant, override the current <code>lin</code> with <code>lin_Slant</code>:</p>
+<p>For example  when generate features with lines with slant, overwrite the current <code>lin</code> with <code>lin_Slant</code>:</p>
 
 <pre><code>$ rm -r lin
 $ cp -r lin_Slant lin
@@ -151,7 +152,7 @@ $ ./merkmale_hmm.sh
 $ ./merkmale_hmm.sh
 </code></pre>
 
-<p>When generate features without slant, override the current <code>lin</code> with <code>lin_noSlant</code> just like before:</p>
+<p>When generate features without slant, overwrite the current <code>lin</code> with <code>lin_noSlant</code> just like before:</p>
 
 <pre><code>$ rm -r lin
 $ cp -r lin_noSlant lin
@@ -181,7 +182,7 @@ $ cp -r lin_noSlant lin
 </code></pre>
 
 <p><strong><code>DoAll</code> is a shell script, which run all commands from the very beginning
-to the end.</strong> It means it will override all current models, generating it
+to the end.</strong> It means it will overwrite all current models, generating it
 again and also do the evaluation for models in <code>bakis</code> and <code>nobakis</code>.</p>
 
 <p><strong>Attention: please choose the corresponding ufv folder before generating the model.</strong></p>
@@ -189,7 +190,7 @@ again and also do the evaluation for models in <code>bakis</code> and <code>noba
 <p>Example: <code>10dim-Slant</code></p>
 
 <p>Generate models for <code>10dim-Slant</code>, firstly make sure the current ufv folder is including the corresponding
-features. You can override the current ufv folder with the features you have generated before.</p>
+features. You can overwrite the current ufv folder with the features you have generated before.</p>
 
 <pre><code>$ rm -r ufv
 $ cp -r ufv_10dim_Slant ufv
