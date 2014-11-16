@@ -1,0 +1,50 @@
+#! /bin/bash
+
+# make sure excute this script in hmm/
+
+#echo "#######################"
+#echo "enter linear/"
+#rm -r linear
+#mkdir linear
+#cd linear
+#rm ./*
+#echo "#######################"
+
+#echo "training intial models"
+#../../DoKMeans -v; ../../DoInit -v; ../../DoTrain -v 0 19; ../../DoLabel -v 20;
+
+echo "#######################"
+echo "enter bakis/"
+echo "#######################"
+#cd ..
+rm -r bakis
+mkdir bakis
+cd bakis
+
+echo "training bakis models"
+cp ../../makeini.sh ./
+cp ../linear/klaus.0.cl ./
+./makeini.sh 20 
+../../DoInit -v -t Bakis
+../../DoTrain -v 0 19
+../../DoXEvalChar -v 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20
+../../MkEvals
+../../MkSummary>SUM
+
+echo "#######################"
+echo "enter nobakis/"
+echo "#######################"
+cd ..
+rm -r nobakis
+mkdir nobakis
+cd nobakis 
+
+echo "training no-bakis models"
+cp ../../makeini.sh ./
+cp ../linear/klaus.0.cl ./
+./makeini.sh 20
+../../DoInit -v 
+../../DoTrain -v 0 19
+../../DoXEvalChar -v 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20
+../../MkEvals
+../../MkSummary>SUM

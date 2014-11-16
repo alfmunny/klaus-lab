@@ -1,0 +1,63 @@
+Evaluation results on '550':
+===============================
+Evaluation of klaus.test_12_550-10-b75-w15.ceval
+cat klaus.test_12_550-10-b75-w15.ceval  | cat
+prozent WA/SR/WC/S/D/I   = 40.33+/-1.9  0.73 44.11    33.89 22.00  3.78 
+Evaluation of klaus.test_12_550-11-b75-w15.ceval
+cat klaus.test_12_550-11-b75-w15.ceval  | cat
+prozent WA/SR/WC/S/D/I   = 40.89+/-1.9  0.91 44.48    33.89 21.63  3.59 
+Evaluation of klaus.test_12_550-12-b75-w15.ceval
+cat klaus.test_12_550-12-b75-w15.ceval  | cat
+prozent WA/SR/WC/S/D/I   = 40.37+/-1.9  0.91 44.07    34.67 21.26  3.70 
+Evaluation of klaus.test_12_550-13-b75-w15.ceval
+cat klaus.test_12_550-13-b75-w15.ceval  | cat
+prozent WA/SR/WC/S/D/I   = 40.44+/-1.9  0.91 44.26    34.56 21.19  3.81 
+Evaluation of klaus.test_12_550-14-b75-w15.ceval
+cat klaus.test_12_550-14-b75-w15.ceval  | cat
+prozent WA/SR/WC/S/D/I   = 40.59+/-1.9  1.09 44.67    34.15 21.19  4.07 
+Evaluation of klaus.test_12_550-15-b75-w15.ceval
+cat klaus.test_12_550-15-b75-w15.ceval  | cat
+prozent WA/SR/WC/S/D/I   = 40.89+/-1.9  1.09 45.04    33.89 21.07  4.15 
+Evaluation of klaus.test_12_550-16-b75-w15.ceval
+cat klaus.test_12_550-16-b75-w15.ceval  | cat
+prozent WA/SR/WC/S/D/I   = 41.00+/-1.9  1.09 45.04    33.81 21.15  4.04 
+Evaluation of klaus.test_12_550-17-b75-w15.ceval
+cat klaus.test_12_550-17-b75-w15.ceval  | cat
+prozent WA/SR/WC/S/D/I   = 40.70+/-1.9  1.45 44.85    33.85 21.30  4.15 
+Evaluation of klaus.test_12_550-18-b75-w15.ceval
+cat klaus.test_12_550-18-b75-w15.ceval  | cat
+prozent WA/SR/WC/S/D/I   = 40.96+/-1.9  1.27 45.00    33.67 21.33  4.04 
+Evaluation of klaus.test_12_550-19-b75-w15.ceval
+cat klaus.test_12_550-19-b75-w15.ceval  | cat
+prozent WA/SR/WC/S/D/I   = 40.93+/-1.9  1.09 45.00    33.89 21.11  4.07 
+Evaluation of klaus.test_12_550-1-b75-w15.ceval
+cat klaus.test_12_550-1-b75-w15.ceval  | cat
+prozent WA/SR/WC/S/D/I   = 33.44+/-1.8  0.55 35.37    32.85 31.78  1.93 
+Evaluation of klaus.test_12_550-20-b75-w15.ceval
+cat klaus.test_12_550-20-b75-w15.ceval  | cat
+prozent WA/SR/WC/S/D/I   = 41.15+/-1.9  1.45 45.19    33.59 21.22  4.04 
+Evaluation of klaus.test_12_550-2-b75-w15.ceval
+cat klaus.test_12_550-2-b75-w15.ceval  | cat
+prozent WA/SR/WC/S/D/I   = 37.89+/-1.9  0.18 40.89    31.11 28.00  3.00 
+Evaluation of klaus.test_12_550-3-b75-w15.ceval
+cat klaus.test_12_550-3-b75-w15.ceval  | cat
+prozent WA/SR/WC/S/D/I   = 39.81+/-1.9  0.36 43.41    31.15 25.44  3.59 
+Evaluation of klaus.test_12_550-4-b75-w15.ceval
+cat klaus.test_12_550-4-b75-w15.ceval  | cat
+prozent WA/SR/WC/S/D/I   = 41.11+/-1.9  0.55 44.81    31.96 23.22  3.70 
+Evaluation of klaus.test_12_550-5-b75-w15.ceval
+cat klaus.test_12_550-5-b75-w15.ceval  | cat
+prozent WA/SR/WC/S/D/I   = 41.19+/-1.9  0.91 45.22    32.93 21.85  4.04 
+Evaluation of klaus.test_12_550-6-b75-w15.ceval
+cat klaus.test_12_550-6-b75-w15.ceval  | cat
+prozent WA/SR/WC/S/D/I   = 41.19+/-1.9  0.91 44.96    33.07 21.96  3.78 
+Evaluation of klaus.test_12_550-7-b75-w15.ceval
+cat klaus.test_12_550-7-b75-w15.ceval  | cat
+prozent WA/SR/WC/S/D/I   = 40.56+/-1.9  0.55 44.59    33.41 22.00  4.04 
+Evaluation of klaus.test_12_550-8-b75-w15.ceval
+cat klaus.test_12_550-8-b75-w15.ceval  | cat
+prozent WA/SR/WC/S/D/I   = 39.74+/-1.9  0.18 43.67    34.07 22.26  3.93 
+Evaluation of klaus.test_12_550-9-b75-w15.ceval
+cat klaus.test_12_550-9-b75-w15.ceval  | cat
+prozent WA/SR/WC/S/D/I   = 39.67+/-1.9  0.55 43.30    34.78 21.93  3.63 
+

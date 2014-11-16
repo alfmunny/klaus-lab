@@ -7,7 +7,7 @@ verbose=
 relpath=". .. ../.. ../../.."
 
 name=klaus
-dim=12
+dim=14
 nclass=1000
 transform=
 
