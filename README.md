@@ -2,8 +2,7 @@
 
 This page contains the full steps and descriptions to generate models and results.
 
-Results are represented in diagram above. Now there are still results for 12 dimensions left.
-They would be filled in couple of days.
+All results are represented in diagram above.
 
 Only to see the results, please review them on [Github](https://github.com/alfmunny/klaus-lab).
 
@@ -38,8 +37,11 @@ Here are relevant folders:
 
 `ufv_12dim_Slant`: features for 12 dims with slant
 
-`hmm`: hidden markov model
+`ufv_14dim_Slant`: features for 14 dims with slant
 
+`ufv_14dim_noSlant`: features for 14 dims without slant
+
+`hmm`: hidden markov model
 
 
 ## Configuration before run

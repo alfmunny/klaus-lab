@@ -64,8 +64,7 @@
 
 <p>This page contains the full steps and descriptions to generate models and results.</p>
 
-<p>Results are represented in diagram above. Now there are still results for 12 dimensions left.
-They would be filled in couple of days.</p>
+<p>All results are represented in diagram above.</p>
 
 <p>Only to see the results, please review them on <a href="https://github.com/alfmunny/klaus-lab">Github</a>.</p>
 
@@ -99,6 +98,10 @@ The content of <code>SUM</code> will be described here in part <strong>Evaluatio
 <p><code>ufv_10dim_Slant</code>: features for 10 dims with slant</p>
 
 <p><code>ufv_12dim_Slant</code>: features for 12 dims with slant</p>
+
+<p><code>ufv_14dim_noSlant</code>: features for 14 dims without slant</p>
+
+<p><code>ufv_14dim_Slant</code>: features for 14 dims with slant</p>
 
 <p><code>hmm</code>: hidden markov model</p>
 
@@ -167,8 +170,10 @@ $ cp -r lin_noSlant lin
 <ul>
 <li><code>10dim-Slant</code>: 10 features with slant</li>
 <li><code>12dim-Slant</code>: 12 features with slant</li>
+<li><code>14dim-Slant</code>: 14 features with slant</li>
 <li><code>10dim-noSlant</code>: 10 features without slant</li>
 <li><code>12dim-noSlant</code>: 12 features without slant</li>
+<li><code>14dim-noSlant</code>: 14 features without slant</li>
 </ul>
 
 
@@ -195,6 +200,11 @@ features. You can overwrite the current ufv folder with the features you have ge
 <pre><code>$ rm -r ufv
 $ cp -r ufv_10dim_Slant ufv
 </code></pre>
+
+<p>Then make sure that the definition of dimension in script <code>DoKmeans</code> passes the features</p>
+<p> For <code>10dim-Slant</code> edit the corresponding line to <code>dim=10</code> </p>
+<p> For <code>12dim-Slant</code> edit the corresponding line to <code>dim=12</code> </p>
+<p> For <code>14dim-Slant</code> edit the corresponding line to <code>dim=14</code> </p>
 
 <p>Then run <code>DoAll</code> in the folder with the corresponding name</p>
 

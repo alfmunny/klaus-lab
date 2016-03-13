@@ -32,7 +32,7 @@ $(function () {
         },
         legend: {
             //layout: 'horizontal',
-            layout: 'vertical',
+            layout: 'horizontal',
             align: 'left',
             x: 60,
             y: -60,
