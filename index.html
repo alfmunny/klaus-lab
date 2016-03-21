@@ -10,9 +10,11 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
   <script src="javascripts/main.js"></script>
   <script src="javascripts/data.js"></script>
+  <script src="javascripts/data2.js"></script>
   <script src="https://code.highcharts.com/highcharts.js"></script>
   <script src="https://code.highcharts.com/modules/exporting.js"></script>
   <script src="javascripts/diagram.js"></script>
+  <script src="javascripts/diagram2.js"></script>
   <!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -55,6 +57,7 @@
         </h3>
 
       <div id="diagram" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+      <div id="diagram2" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
       <!-- <h3>
       <a name="models" class="anchor" href="#models"><span class="octicon octicon-link"></span></a>Models
     </h3> -->
@@ -102,6 +105,18 @@ The content of <code>SUM</code> will be described here in part <strong>Evaluatio
 <p><code>ufv_14dim_noSlant</code>: features for 14 dims without slant</p>
 
 <p><code>ufv_14dim_Slant</code>: features for 14 dims with slant</p>
+
+<p><code>ufv_2016_10dim_noSlant</code>: features for 10 dimensions without slant with new data</p>
+
+<p><code>ufv_2016_12dim_noSlant</code>: features for 12 dims without slant with new data</p>
+
+<p><code>ufv_2016_10dim_Slant</code>: features for 10 dims with slant with new data</p>
+
+<p><code>ufv_2016_12dim_Slant</code>: features for 12 dims with slant with new data</p>
+
+<p><code>ufv_2016_14dim_noSlant</code>: features for 14 dims without slant with new data</p>
+
+<p><code>ufv_2016_14dim_Slant</code>: features for 14 dims with slant with new data</p>
 
 <p><code>hmm</code>: hidden markov model</p>
 
@@ -174,6 +189,13 @@ $ cp -r lin_noSlant lin
 <li><code>10dim-noSlant</code>: 10 features without slant</li>
 <li><code>12dim-noSlant</code>: 12 features without slant</li>
 <li><code>14dim-noSlant</code>: 14 features without slant</li>
+
+<li><code>2016_10dim_Slant</code>: 10 features with slant with new data</li>
+<li><code>2016_12dim_Slant</code>: 12 features with slant with new data</li>
+<li><code>2016_14dim_Slant</code>: 14 features with slant with new data</li>
+<li><code>2016_10dim_noSlant</code>: 10 features without slant with new data</li>
+<li><code>2016_12dim_noSlant</code>: 12 features without slant with new data</li>
+<li><code>2016_14dim_noSlant</code>: 14 features without slant with new data</li>
 </ul>
 
 
@@ -189,6 +211,8 @@ $ cp -r lin_noSlant lin
 <p><strong><code>DoAll</code> is a shell script, which run all commands from the very beginning
 to the end.</strong> It means it will overwrite all current models, generating it
 again and also do the evaluation for models in <code>bakis</code> and <code>nobakis</code>.</p>
+
+<p>There will be two evaluation results <code>SUM</code> for old 550 test data and <code>SUM2</code> for the new 550 data.
 
 <p><strong>Attention: please choose the corresponding ufv folder before generating the model.</strong></p>
 
